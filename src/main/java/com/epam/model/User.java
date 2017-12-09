@@ -1,16 +1,13 @@
 package com.epam.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
 @NoArgsConstructor
-
+@EqualsAndHashCode(of = "id")
 public class User {
 
     private int id;
@@ -20,4 +17,6 @@ public class User {
     private String password;
 
     private Set<Tag> tags;
+
+    private Set<Notebook> notebooks;
 }

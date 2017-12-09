@@ -1,5 +1,6 @@
 package com.epam.dao;
 
+import com.epam.model.Note;
 import com.epam.model.User;
 import lombok.*;
 
@@ -11,7 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 @RequiredArgsConstructor
 @EqualsAndHashCode(of = "id")
-@ToString(exclude = "tags")
 @Table(name = "users", schema = "public")
 public class UserJpaEntity {
 
@@ -46,6 +46,12 @@ public class UserJpaEntity {
                     referencedColumnName = "id",
                     nullable = false))
     private Set<TagJpaEntity> tags;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<NotebookJpaEntity> notebooks;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<NoteJpaEntity> notes;
 
     UserJpaEntity(final User user) {
         this.id = user.getId();
