@@ -9,4 +9,6 @@ public interface NotebookRepository {
     void update(Notebook notebook);
 
     List<Notebook> all();
+
+    List<Notebook> getByUserId(int userId);
 }

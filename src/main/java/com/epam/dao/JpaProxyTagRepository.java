@@ -36,4 +36,16 @@ public class JpaProxyTagRepository implements TagRepository {
         }
         return tags;
     }
+
+    public Tag getById(int id) {
+        List<TagJpaEntity> entities = jpaRepository.findAll();
+        List<Tag> tags = new ArrayList<Tag>(entities.size());
+        for (TagJpaEntity entity : entities) {
+            Tag tag = entity.toTag();
+            if(tag.getId() == id) {
+                return tag;
+            }
+        }
+        return null;
+    }
 }

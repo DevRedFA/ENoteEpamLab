@@ -2,8 +2,6 @@ package com.epam.dao;
 
 import com.epam.model.Note;
 import com.epam.model.NoteRepository;
-import com.epam.model.Notebook;
-import com.epam.model.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -36,5 +34,28 @@ public class JpaProxyNoteRepository implements NoteRepository {
             notes.add(note);
         }
         return notes;
+    }
+
+    public List<Note> getByUserId(int userId) {
+        List<NoteJpaEntity> entities = jpaRepository.findAll();
+        List<Note> notes = new ArrayList<Note>(entities.size());
+        for (NoteJpaEntity entity : entities) {
+            Note note = entity.toNote();
+            if(note.getUser_id() == userId) {
+                notes.add(note);
+            }
+        }
+        return notes;
+    }
+
+    public Note getById(int id) {
+        List<NoteJpaEntity> entities = jpaRepository.findAll();
+        for (NoteJpaEntity entity : entities) {
+            Note note = entity.toNote();
+            if(note.getId() == id) {
+                return note;
+            }
+        }
+        return null;
     }
 }

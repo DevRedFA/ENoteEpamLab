@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.contains;
-import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -23,7 +22,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
-public class TagJpaRepositoryIntegrationTest {
+public class NoteJpaRepositoryIntegrationTest {
 
     @Autowired
     private UserJpaRepository userJpaRepository;
@@ -32,41 +31,16 @@ public class TagJpaRepositoryIntegrationTest {
     private TagJpaRepository tagJpaRepository;
 
     @Autowired
-    private NotebookJpaRepository notebookJpaRepository;
-
-    @Autowired
     private NoteJpaRepository noteJpaRepository;
 
+    @Autowired
+    private NotebookJpaRepository notebookJpaRepository;
 
-    @Test
-    public void save_test() {
-        TagJpaEntity work = new TagJpaEntity("Work");
-        work = tagJpaRepository.save(work);
 
-        TagJpaEntity home = new TagJpaEntity("Home");
-        home = tagJpaRepository.save(home);
-
-        List<TagJpaEntity> tags = tagJpaRepository.findAll();
-        assertThat(tags.size(), is(2));
-        assertThat(tags, hasItem(home));
-        assertThat(tags, hasItem(work));
-    }
-
-    @Test
-    public void update_test() {
-        TagJpaEntity work = new TagJpaEntity("Work");
-        work = tagJpaRepository.save(work);
-        List<TagJpaEntity> users = tagJpaRepository.findAll();
-        assertThat(users, hasItem(work));
-        work.setName("Second Tag");
-        tagJpaRepository.save(work);
-        users = tagJpaRepository.findAll();
-        assertThat(users, hasItem(work));
-    }
 
     @Test
     @Transactional
-    public void createWithNoteAndTagAndUser() {
+    public void create_with_tag_and_notebook_and_user_test() {
         UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
         Set<TagJpaEntity> tags = new HashSet<TagJpaEntity>();
         TagJpaEntity work = new TagJpaEntity("Work");
@@ -77,25 +51,30 @@ public class TagJpaRepositoryIntegrationTest {
         NotebookJpaEntity notebook = new NotebookJpaEntity("First Notebook", dave);
         notebooks.add(notebook);
         dave.setNotebooks(notebooks);
+        dave = userJpaRepository.save(dave);
 
         NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
         note.setTags(tags);
+        note = noteJpaRepository.save(note);
         notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+        notebookJpaRepository.save(notebook);
         dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
 
-        userJpaRepository.save(dave);
+        List<NoteJpaEntity> notes = noteJpaRepository.findAll();
+        assertThat(notes, contains(note));
 
-        work = tagJpaRepository.save(work);
-        List<TagJpaEntity> tagsList = tagJpaRepository.findAll();
-        assertThat(tagsList, contains(work));
-        assertThat(tagsList.size(), is(1));
-        assertThat(tagsList.get(0).getId(), is(work.getId()));
-        assertThat(tagsList.get(0).getName(), is("Work"));
-        assertThat(tagsList.get(0).toTag(), is(work.toTag()));
+        note.setName("note 2");
+        noteJpaRepository.save(note);
+        notes = noteJpaRepository.findAll();
+        assertThat(notes, contains(note));
 
-        List<NoteJpaEntity> notesAll = noteJpaRepository.findAll();
-        assertThat(notesAll.size(), is(1));
-        List<UserJpaEntity> users = userJpaRepository.findAll();
-        assertThat(users.size(), is(1));
+        assertThat(notes.get(0).getTags(), is(tags));
+        assertThat(notes.get(0).getUser(), is(dave));
+
+        List<TagJpaEntity> tagsAll = tagJpaRepository.findAll();
+        assertThat(tagsAll.size(), is(1));
+
+        List<NotebookJpaEntity> notebooksAll = notebookJpaRepository.findAll();
+        assertThat(notebooksAll.size(), is(1));
     }
 }

@@ -36,4 +36,26 @@ public class JpaProxyUserRepository implements UserRepository {
         }
         return users;
     }
+
+    public User getById(int userId) {
+        List<UserJpaEntity> entities = jpaRepository.findAll();
+        for (UserJpaEntity entity : entities) {
+            User user = entity.toUser();
+            if (user.getId() == userId) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public User getByName(String name) {
+        List<UserJpaEntity> entities = jpaRepository.findAll();
+        for (UserJpaEntity entity : entities) {
+            User user = entity.toUser();
+            if (user.getName().equalsIgnoreCase(name)) {
+                return user;
+            }
+        }
+        return null;
+    }
 }
