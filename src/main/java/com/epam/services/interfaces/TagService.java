@@ -1,6 +1,6 @@
 package com.epam.services.interfaces;
 
-import com.epam.model.Tag;
+import com.epam.models.Tag;
 
 import java.util.List;
 

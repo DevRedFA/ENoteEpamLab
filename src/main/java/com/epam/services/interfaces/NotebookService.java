@@ -1,6 +1,6 @@
 package com.epam.services.interfaces;
 
-import com.epam.model.Notebook;
+import com.epam.models.Notebook;
 
 import java.util.List;
 

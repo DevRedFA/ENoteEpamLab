@@ -1,8 +1,8 @@
 import com.epam.config.ApplicationConfiguration;
-import com.epam.dao.JpaProxyNotebookRepository;
-import com.epam.dao.JpaProxyUserRepository;
-import com.epam.model.Notebook;
-import com.epam.model.User;
+import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
+import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
+import com.epam.models.Notebook;
+import com.epam.models.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,6 +11,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+@Transactional
 public class JpaProxyNotebookRepositoryIntegrationTest {
 
     @Autowired
@@ -45,19 +47,17 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
         carter = userRepository.save(carter);
         carterId = carter.getId();
 
-        spring = new Notebook("Spring courses Epam", daveId);
+        spring = new Notebook("Spring courses Epam", dave);
         spring = notebookRepository.save(spring);
-        university = new Notebook("1st semester", daveId);
+        university = new Notebook("1st semester", dave);
         university = notebookRepository.save(university);
-        other = new Notebook("other user's notebook", carterId);
+        other = new Notebook("other user's notebook", carter);
         notebookRepository.save(other);
 
     }
 
     @Test
     public void saveAndGetByIdTestCase() {
-
-
         List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
         assertThat(notebooks.size(), is(2));
         assertThat(notebooks, hasItem(spring));
@@ -66,7 +66,6 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
 
     @Test
     public void saveAndGetAllTestCase() {
-        init();
         List<Notebook> notebooks = notebookRepository.all();
         assertThat(notebooks.size(), is(3));
         assertThat(notebooks, hasItem(spring));

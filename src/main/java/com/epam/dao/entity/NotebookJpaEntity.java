@@ -1,8 +1,8 @@
-package com.epam.dao;
+package com.epam.dao.entity;
 
 
-import com.epam.model.Note;
-import com.epam.model.Notebook;
+import com.epam.models.Notebook;
+import com.epam.models.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,16 +38,4 @@ public class NotebookJpaEntity {
 
     @OneToMany(mappedBy = "notebook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<NoteJpaEntity> notes;
-
-    NotebookJpaEntity(final Notebook notebook) {
-        this.id = notebook.getId();
-        this.name = notebook.getName();
-    }
-
-    public Notebook toNotebook() {
-        Notebook notebook = new Notebook();
-        notebook.setId(id);
-        notebook.setName(name);
-        return notebook;
-    }
 }

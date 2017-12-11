@@ -1,6 +1,6 @@
 package com.epam.services.interfaces;
 
-import com.epam.model.User;
+import com.epam.models.User;
 
 import java.util.List;
 

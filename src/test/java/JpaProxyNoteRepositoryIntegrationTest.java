@@ -1,11 +1,11 @@
 import com.epam.config.ApplicationConfiguration;
-import com.epam.dao.JpaProxyNoteRepository;
-import com.epam.dao.JpaProxyNotebookRepository;
-import com.epam.dao.JpaProxyTagRepository;
-import com.epam.dao.JpaProxyUserRepository;
-import com.epam.model.Note;
-import com.epam.model.Notebook;
-import com.epam.model.User;
+import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
+import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
+import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
+import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
+import com.epam.models.Note;
+import com.epam.models.Notebook;
+import com.epam.models.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +14,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,6 +25,7 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+@Transactional
 public class JpaProxyNoteRepositoryIntegrationTest {
 
     @Autowired
@@ -46,11 +48,11 @@ public class JpaProxyNoteRepositoryIntegrationTest {
         dave = userRepository.save(dave);
         int daveId = dave.getId();
 
-        Notebook spring = new Notebook("Spring courses Epam", daveId);
+        Notebook spring = new Notebook("Spring courses Epam", dave);
         spring = notebookRepository.save(spring);
         int springId = spring.getId();
 
-        note = new Note("note", daveId, springId);
+        note = new Note("note_name", "note", dave, spring);
         noteRepository.save(note);
     }
 

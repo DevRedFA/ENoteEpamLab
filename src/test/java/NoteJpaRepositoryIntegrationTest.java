@@ -1,5 +1,12 @@
 import com.epam.config.ApplicationConfiguration;
-import com.epam.dao.*;
+import com.epam.dao.entity.NoteJpaEntity;
+import com.epam.dao.entity.NotebookJpaEntity;
+import com.epam.dao.entity.TagJpaEntity;
+import com.epam.dao.entity.UserJpaEntity;
+import com.epam.dao.jparepository.NoteJpaRepository;
+import com.epam.dao.jparepository.NotebookJpaRepository;
+import com.epam.dao.jparepository.TagJpaRepository;
+import com.epam.dao.jparepository.UserJpaRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

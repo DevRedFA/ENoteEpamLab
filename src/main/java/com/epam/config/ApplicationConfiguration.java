@@ -17,7 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 @Configuration
-@ComponentScan("com.epam")
+@ComponentScan({"com.epam.dao", "com.epam.dao.mapper", "com.epam.services", "com.epam.config"})
 @EnableJpaRepositories("com.epam.dao")
 public class ApplicationConfiguration {
     @Bean

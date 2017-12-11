@@ -6,8 +6,8 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import com.epam.config.ApplicationConfiguration;
-import com.epam.dao.JpaProxyUserRepository;
-import com.epam.model.User;
+import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
+import com.epam.models.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +15,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = ApplicationConfiguration.class)
@@ -25,6 +26,7 @@ public class JpaProxyUserRepositoryIntegrationTest {
     private JpaProxyUserRepository repository;
 
     @Test
+    @Transactional
     public void sampleTestCase() {
         User dave = new User("Dave", "Mathews");
         dave = repository.save(dave);

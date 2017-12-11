@@ -1,7 +1,7 @@
 package com.epam.services.implementations;
 
-import com.epam.dao.JpaProxyNoteRepository;
-import com.epam.model.Note;
+import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
+import com.epam.models.Note;
 import com.epam.services.interfaces.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.epam.model;
+package com.epam.models;
 
 import lombok.*;
 
@@ -19,4 +19,5 @@ public class User {
     private Set<Tag> tags;
 
     private Set<Notebook> notebooks;
+
 }

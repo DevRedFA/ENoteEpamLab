@@ -1,7 +1,7 @@
 package com.epam.services.implementations;
 
-import com.epam.dao.JpaProxyNotebookRepository;
-import com.epam.model.Notebook;
+import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
+import com.epam.models.Notebook;
 import com.epam.services.interfaces.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

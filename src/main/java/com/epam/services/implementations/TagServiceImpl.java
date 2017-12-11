@@ -1,7 +1,7 @@
 package com.epam.services.implementations;
 
-import com.epam.dao.JpaProxyTagRepository;
-import com.epam.model.Tag;
+import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
+import com.epam.models.Tag;
 import com.epam.services.interfaces.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

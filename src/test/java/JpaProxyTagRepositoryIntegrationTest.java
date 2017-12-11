@@ -1,6 +1,6 @@
 import com.epam.config.ApplicationConfiguration;
-import com.epam.dao.JpaProxyTagRepository;
-import com.epam.model.Tag;
+import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
+import com.epam.models.Tag;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

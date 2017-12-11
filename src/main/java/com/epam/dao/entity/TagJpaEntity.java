@@ -1,7 +1,7 @@
-package com.epam.dao;
+package com.epam.dao.entity;
 
 
-import com.epam.model.Tag;
+import com.epam.models.Tag;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,16 +25,4 @@ public class TagJpaEntity {
             nullable = false,
             length = -1)
     private String name;
-
-    TagJpaEntity(final Tag tag) {
-        this.id = tag.getId();
-        this.name = tag.getName();
-    }
-
-    public Tag toTag() {
-        Tag tag = new Tag();
-        tag.setId(id);
-        tag.setName(name);
-        return tag;
-    }
 }

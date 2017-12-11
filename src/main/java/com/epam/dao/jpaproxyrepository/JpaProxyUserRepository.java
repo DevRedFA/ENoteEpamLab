@@ -1,11 +1,13 @@
-package com.epam.dao;
+package com.epam.dao.jpaproxyrepository;
 
-import com.epam.model.User;
-import com.epam.model.UserRepository;
+import com.epam.dao.entity.UserJpaEntity;
+import com.epam.dao.jparepository.UserJpaRepository;
+import com.epam.dao.mapper.UserMapper;
+import com.epam.models.User;
+import com.epam.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -14,35 +16,29 @@ public class JpaProxyUserRepository implements UserRepository {
     @Autowired
     private UserJpaRepository jpaRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     public User save(User newUser) {
-        UserJpaEntity newEntity = new UserJpaEntity(newUser);
-        UserJpaEntity savedEntity = jpaRepository.save(newEntity);
-        return savedEntity.toUser();
+        UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
+        return userMapper.userEntityToUser(savedEntity);
     }
 
     public void update(User user) {
-        UserJpaEntity newEntity = new UserJpaEntity(user);
-        // is this really needed?
-        jpaRepository.save(newEntity);
+        jpaRepository.save(userMapper.userToUserEntity(user));
     }
 
 
     public List<User> all() {
         List<UserJpaEntity> entities = jpaRepository.findAll();
-        List<User> users = new ArrayList<User>(entities.size());
-        for (UserJpaEntity entity : entities) {
-            User user = entity.toUser();
-            users.add(user);
-        }
-        return users;
+        return userMapper.userEntitiesToUsers(entities);
     }
 
     public User getById(int userId) {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         for (UserJpaEntity entity : entities) {
-            User user = entity.toUser();
-            if (user.getId() == userId) {
-                return user;
+            if (entity.getId() == userId) {
+                return userMapper.userEntityToUser(entity);
             }
         }
         return null;
@@ -51,9 +47,8 @@ public class JpaProxyUserRepository implements UserRepository {
     public User getByName(String name) {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         for (UserJpaEntity entity : entities) {
-            User user = entity.toUser();
-            if (user.getName().equalsIgnoreCase(name)) {
-                return user;
+            if (entity.getName().equalsIgnoreCase(name)) {
+                return userMapper.userEntityToUser(entity);
             }
         }
         return null;

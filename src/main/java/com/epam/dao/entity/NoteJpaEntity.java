@@ -1,8 +1,5 @@
-package com.epam.dao;
+package com.epam.dao.entity;
 
-
-import com.epam.model.Note;
-import com.epam.model.Notebook;
 import lombok.*;
 
 import javax.persistence.*;
@@ -68,16 +65,4 @@ public class NoteJpaEntity {
 
     @Column(name = "updated_date")
     private Date updated;
-
-    NoteJpaEntity(final Note note) {
-        this.id = note.getId();
-        this.name = note.getName();
-    }
-
-    public Note toNote() {
-        Note note = new Note();
-        notebook.setId(id);
-        notebook.setName(name);
-        return note;
-    }
 }

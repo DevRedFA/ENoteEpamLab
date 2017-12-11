@@ -1,7 +1,6 @@
-package com.epam.dao;
+package com.epam.dao.entity;
 
-import com.epam.model.Note;
-import com.epam.model.User;
+import com.epam.models.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -52,19 +51,4 @@ public class UserJpaEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<NoteJpaEntity> notes;
-
-    UserJpaEntity(final User user) {
-        this.id = user.getId();
-        this.name = user.getName();
-        this.password = user.getPassword();
-    }
-
-    public User toUser() {
-        User user = new User();
-        user.setId(id);
-        user.setName(name);
-        user.setPassword(password);
-        return user;
-    }
-
 }

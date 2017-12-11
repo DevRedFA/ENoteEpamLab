@@ -1,7 +1,10 @@
-package com.epam.dao;
+package com.epam.dao.jpaproxyrepository;
 
-import com.epam.model.Note;
-import com.epam.model.NoteRepository;
+import com.epam.dao.entity.NoteJpaEntity;
+import com.epam.dao.jparepository.NoteJpaRepository;
+import com.epam.dao.mapper.NoteMapper;
+import com.epam.models.Note;
+import com.epam.models.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,35 +17,28 @@ public class JpaProxyNoteRepository implements NoteRepository {
     @Autowired
     private NoteJpaRepository jpaRepository;
 
+    @Autowired
+    private NoteMapper noteMapper;
+
     public Note save(Note note) {
-        NoteJpaEntity newEntity = new NoteJpaEntity(note);
-        NoteJpaEntity savedEntity = jpaRepository.save(newEntity);
-        return savedEntity.toNote();
+        NoteJpaEntity savedEntity = jpaRepository.save(noteMapper.noteToNoteEntity(note));
+        return noteMapper.noteEntityToNote(savedEntity);
     }
 
     public void update(Note note) {
-        NoteJpaEntity newEntity = new NoteJpaEntity(note);
-        // is this really needed?
-        jpaRepository.save(newEntity);
+        jpaRepository.save(noteMapper.noteToNoteEntity(note));
     }
 
     public List<Note> all() {
-        List<NoteJpaEntity> entities = jpaRepository.findAll();
-        List<Note> notes = new ArrayList<Note>(entities.size());
-        for (NoteJpaEntity entity : entities) {
-            Note note = entity.toNote();
-            notes.add(note);
-        }
-        return notes;
+        return noteMapper.noteEntitiesToNotes(jpaRepository.findAll());
     }
 
     public List<Note> getByUserId(int userId) {
         List<NoteJpaEntity> entities = jpaRepository.findAll();
         List<Note> notes = new ArrayList<Note>(entities.size());
         for (NoteJpaEntity entity : entities) {
-            Note note = entity.toNote();
-            if(note.getUser_id() == userId) {
-                notes.add(note);
+            if (entity.getUser().getId() == userId) {
+                notes.add(noteMapper.noteEntityToNote(entity));
             }
         }
         return notes;
@@ -51,9 +47,8 @@ public class JpaProxyNoteRepository implements NoteRepository {
     public Note getById(int id) {
         List<NoteJpaEntity> entities = jpaRepository.findAll();
         for (NoteJpaEntity entity : entities) {
-            Note note = entity.toNote();
-            if(note.getId() == id) {
-                return note;
+            if (entity.getId() == id) {
+                return noteMapper.noteEntityToNote(entity);
             }
         }
         return null;
