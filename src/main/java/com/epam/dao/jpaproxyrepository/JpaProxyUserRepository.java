@@ -13,44 +13,48 @@ import java.util.List;
 @Repository
 public class JpaProxyUserRepository implements UserRepository {
 
-    @Autowired
-    private UserJpaRepository jpaRepository;
+  @Autowired
+  private UserJpaRepository jpaRepository;
 
-    @Autowired
-    private UserMapper userMapper;
+  @Autowired
+  private UserMapper userMapper;
 
-    public User save(User newUser) {
-        UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
-        return userMapper.userEntityToUser(savedEntity);
+  public User save(User newUser) {
+    UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
+    return userMapper.userEntityToUser(savedEntity);
+  }
+
+  public void update(User user) {
+    jpaRepository.save(userMapper.userToUserEntity(user));
+  }
+
+  public void delete(User user) {
+    jpaRepository.delete(userMapper.userToUserEntity(user));
+  }
+
+  public List<User> all() {
+    List<UserJpaEntity> entities = jpaRepository.findAll();
+    return userMapper.userEntitiesToUsers(entities);
+  }
+
+  public User getById(int userId) {
+    List<UserJpaEntity> entities = jpaRepository.findAll();
+    for (UserJpaEntity entity : entities) {
+      if (entity.getId() == userId) {
+        return userMapper.userEntityToUser(entity);
+      }
     }
+    return null;
+  }
 
-    public void update(User user) {
-        jpaRepository.save(userMapper.userToUserEntity(user));
+  public User getByName(String name) {
+    List<UserJpaEntity> entities = jpaRepository.findAll();
+    for (UserJpaEntity entity : entities) {
+      if (entity.getName()
+                .equalsIgnoreCase(name)) {
+        return userMapper.userEntityToUser(entity);
+      }
     }
-
-
-    public List<User> all() {
-        List<UserJpaEntity> entities = jpaRepository.findAll();
-        return userMapper.userEntitiesToUsers(entities);
-    }
-
-    public User getById(int userId) {
-        List<UserJpaEntity> entities = jpaRepository.findAll();
-        for (UserJpaEntity entity : entities) {
-            if (entity.getId() == userId) {
-                return userMapper.userEntityToUser(entity);
-            }
-        }
-        return null;
-    }
-
-    public User getByName(String name) {
-        List<UserJpaEntity> entities = jpaRepository.findAll();
-        for (UserJpaEntity entity : entities) {
-            if (entity.getName().equalsIgnoreCase(name)) {
-                return userMapper.userEntityToUser(entity);
-            }
-        }
-        return null;
-    }
+    return null;
+  }
 }

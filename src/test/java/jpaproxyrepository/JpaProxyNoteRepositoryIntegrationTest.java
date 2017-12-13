@@ -1,4 +1,6 @@
-import com.epam.config.ApplicationConfiguration;
+package jpaproxyrepository;
+
+import com.epam.config.AppConfig;
 import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
@@ -14,6 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -22,8 +25,9 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
+@WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = ApplicationConfiguration.class)
+@ContextConfiguration(classes = AppConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @Transactional
 public class JpaProxyNoteRepositoryIntegrationTest {

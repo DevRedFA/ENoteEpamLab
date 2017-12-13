@@ -11,28 +11,33 @@ import java.util.List;
 
 @Service
 @Transactional
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-    @Autowired
-    JpaProxyUserRepository jpaProxyUserRepository;
+  @Autowired
+  JpaProxyUserRepository jpaProxyUserRepository;
 
-    public User save(User user) {
-        return jpaProxyUserRepository.save(user);
-    }
+  public User save(User user) {
+    return jpaProxyUserRepository.save(user);
+  }
 
-    public List<User> all() {
-        return jpaProxyUserRepository.all();
-    }
+  public List<User> all() {
+    return jpaProxyUserRepository.all();
+  }
 
-    public User getById(int userId) {
-        return jpaProxyUserRepository.getById(userId);
-    }
+  public User getById(int userId) {
+    return jpaProxyUserRepository.getById(userId);
+  }
 
-    public User getByName(String name) {
-        return jpaProxyUserRepository.getByName(name);
-    }
+  public User getByName(String name) {
+    return jpaProxyUserRepository.getByName(name);
+  }
 
-    public void update(User user) {
-        jpaProxyUserRepository.update(user);
-    }
+  public void update(User user) {
+    jpaProxyUserRepository.update(user);
+  }
+
+  @Override
+  public void delete(User user) {
+    jpaProxyUserRepository.delete(user);
+  }
 }

@@ -1,6 +1,7 @@
 package com.epam.models;
 
 
+import java.util.Set;
 import lombok.*;
 
 @Data
@@ -16,4 +17,6 @@ public class Notebook {
 
     @NonNull
     private User user;
+
+    Set<Note> notes;
 }
