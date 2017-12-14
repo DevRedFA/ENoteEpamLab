@@ -22,6 +22,13 @@ public class NoteController {
     return "user";
   }
 
+  @RequestMapping(value = "/{userId}/{notebookId}/tag/{tagId}", method = RequestMethod.GET)
+  public String getAllNotesWithTagFromNotebook(@PathVariable long userId,
+                                               @PathVariable long notebookId,
+                                               @PathVariable long tagId, ModelMap model) {
+    return "user";
+  }
+
   @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.PUT)
   public String createNote(@PathVariable long userId, @PathVariable long notebookId,
                            ModelMap model) {
