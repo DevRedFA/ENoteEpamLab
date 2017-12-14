@@ -27,6 +27,12 @@ public class UserController {
     return "user";
   }
 
+  @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.GET)
+  public String getUser(@PathVariable long id, ModelMap model) {
+    //    userService.update(user);
+    return "user";
+  }
+
   @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.DELETE)
   public String deleteUser(ModelMap model) {
     //    userService.delete(user);
