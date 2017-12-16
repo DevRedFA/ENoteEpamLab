@@ -8,6 +8,7 @@ import java.util.Set;
 @Data
 @RequiredArgsConstructor
 @Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(exclude = "id")
 public class Notebook {

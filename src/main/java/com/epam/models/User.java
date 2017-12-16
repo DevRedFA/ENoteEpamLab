@@ -8,6 +8,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 @EqualsAndHashCode(of = "id")
 public class User {
 
