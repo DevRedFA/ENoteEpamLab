@@ -1,6 +1,6 @@
 package jpaproxyrepository;
 
-import com.epam.config.AppConfig;
+import com.epam.config.RootConfig;
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
 import com.epam.models.Tag;
 import org.junit.Test;
@@ -12,6 +12,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
+
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import static org.hamcrest.Matchers.hasItem;
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = RootConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class JpaProxyTagRepositoryIntegrationTest {
 

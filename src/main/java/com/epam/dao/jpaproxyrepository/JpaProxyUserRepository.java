@@ -7,54 +7,57 @@ import com.epam.models.User;
 import com.epam.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository
+@Transactional(propagation = Propagation.MANDATORY)
 public class JpaProxyUserRepository implements UserRepository {
 
-  @Autowired
-  private UserJpaRepository jpaRepository;
+    @Autowired
+    private UserJpaRepository jpaRepository;
 
-  @Autowired
-  private UserMapper userMapper;
+    @Autowired
+    private UserMapper userMapper;
 
-  public User save(User newUser) {
-    UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
-    return userMapper.userEntityToUser(savedEntity);
-  }
-
-  public void update(User user) {
-    jpaRepository.save(userMapper.userToUserEntity(user));
-  }
-
-  public void delete(User user) {
-    jpaRepository.delete(userMapper.userToUserEntity(user));
-  }
-
-  public List<User> all() {
-    List<UserJpaEntity> entities = jpaRepository.findAll();
-    return userMapper.userEntitiesToUsers(entities);
-  }
-
-  public User getById(int userId) {
-    List<UserJpaEntity> entities = jpaRepository.findAll();
-    for (UserJpaEntity entity : entities) {
-      if (entity.getId() == userId) {
-        return userMapper.userEntityToUser(entity);
-      }
+    public User save(User newUser) {
+        UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
+        return userMapper.userEntityToUser(savedEntity);
     }
-    return null;
-  }
 
-  public User getByName(String name) {
-    List<UserJpaEntity> entities = jpaRepository.findAll();
-    for (UserJpaEntity entity : entities) {
-      if (entity.getName()
-                .equalsIgnoreCase(name)) {
-        return userMapper.userEntityToUser(entity);
-      }
+    public void update(User user) {
+        jpaRepository.save(userMapper.userToUserEntity(user));
     }
-    return null;
-  }
+
+    public void delete(User user) {
+        jpaRepository.delete(userMapper.userToUserEntity(user));
+    }
+
+    public List<User> all() {
+        List<UserJpaEntity> entities = jpaRepository.findAll();
+        return userMapper.userEntitiesToUsers(entities);
+    }
+
+    public User getById(int userId) {
+        List<UserJpaEntity> entities = jpaRepository.findAll();
+        for (UserJpaEntity entity : entities) {
+            if (entity.getId() == userId) {
+                return userMapper.userEntityToUser(entity);
+            }
+        }
+        return null;
+    }
+
+    public User getByName(String name) {
+        List<UserJpaEntity> entities = jpaRepository.findAll();
+        for (UserJpaEntity entity : entities) {
+            if (entity.getName()
+                    .equalsIgnoreCase(name)) {
+                return userMapper.userEntityToUser(entity);
+            }
+        }
+        return null;
+    }
 }

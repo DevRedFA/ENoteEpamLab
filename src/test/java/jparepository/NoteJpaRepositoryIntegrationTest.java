@@ -1,6 +1,7 @@
 package jparepository;
 
-import com.epam.config.AppConfig;
+import com.epam.config.RootConfig;
+import com.epam.config.RootConfig;
 import com.epam.dao.entity.NoteJpaEntity;
 import com.epam.dao.entity.NotebookJpaEntity;
 import com.epam.dao.entity.TagJpaEntity;
@@ -30,7 +31,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = RootConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class NoteJpaRepositoryIntegrationTest {
 
@@ -66,9 +67,9 @@ public class NoteJpaRepositoryIntegrationTest {
         NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
         note.setTags(tags);
         note = noteJpaRepository.save(note);
-        notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+        notebook.setNotes(new HashSet<>(Collections.singleton(note)));
         notebookJpaRepository.save(notebook);
-        dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+        dave.setNotes(new HashSet<>(Collections.singleton(note)));
 
         List<NoteJpaEntity> notes = noteJpaRepository.findAll();
         assertThat(notes, contains(note));

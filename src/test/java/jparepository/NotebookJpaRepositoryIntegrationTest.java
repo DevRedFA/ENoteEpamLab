@@ -1,6 +1,7 @@
 package jparepository;
 
-import com.epam.config.AppConfig;
+import com.epam.config.RootConfig;
+import com.epam.config.RootConfig;
 import com.epam.dao.entity.NoteJpaEntity;
 import com.epam.dao.entity.NotebookJpaEntity;
 import com.epam.dao.entity.TagJpaEntity;
@@ -31,7 +32,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = RootConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class NotebookJpaRepositoryIntegrationTest {
 

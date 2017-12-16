@@ -1,7 +1,6 @@
 package com.epam.dao.entity;
 
 
-import com.epam.models.Tag;
 import lombok.*;
 
 import javax.persistence.*;

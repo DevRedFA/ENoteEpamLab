@@ -1,7 +1,6 @@
-package com.epam.controllers;
+package com.epam.controller;
 
 import com.epam.services.interfaces.NoteService;
-import com.epam.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;

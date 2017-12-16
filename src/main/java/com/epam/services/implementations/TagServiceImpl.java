@@ -5,12 +5,13 @@ import com.epam.models.Tag;
 import com.epam.services.interfaces.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@Transactional
+@Transactional(propagation = Propagation.REQUIRED)
 public class TagServiceImpl implements TagService {
 
     @Autowired

@@ -1,4 +1,4 @@
-package com.epam.controllers;
+package com.epam.controller;
 
 
 import com.epam.services.interfaces.NoteService;

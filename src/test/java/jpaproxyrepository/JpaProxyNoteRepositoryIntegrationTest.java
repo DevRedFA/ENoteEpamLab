@@ -1,6 +1,6 @@
 package jpaproxyrepository;
 
-import com.epam.config.AppConfig;
+import com.epam.config.RootConfig;
 import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertThat;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(classes = RootConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 @Transactional
 public class JpaProxyNoteRepositoryIntegrationTest {

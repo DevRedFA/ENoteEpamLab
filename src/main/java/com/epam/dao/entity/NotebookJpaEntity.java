@@ -1,8 +1,6 @@
 package com.epam.dao.entity;
 
 
-import com.epam.models.Notebook;
-import com.epam.models.User;
 import lombok.*;
 
 import javax.persistence.*;

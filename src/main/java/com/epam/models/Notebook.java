@@ -1,8 +1,9 @@
 package com.epam.models;
 
 
-import java.util.Set;
 import lombok.*;
+
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
