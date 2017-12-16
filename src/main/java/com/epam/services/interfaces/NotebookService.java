@@ -8,9 +8,13 @@ public interface NotebookService {
 
     Notebook save(Notebook notebook);
 
-    List<Notebook> getByUserId(int id);
+    List<Notebook> getByUserId(long id);
+
+    Notebook getById(long id);
 
     List<Notebook> all();
 
     void update(Notebook notebook);
+
+    void delete(Notebook notebook);
 }

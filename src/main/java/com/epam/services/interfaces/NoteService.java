@@ -10,9 +10,11 @@ public interface NoteService {
 
     List<Note> all();
 
-    List<Note> getByUserId(int userId);
+    List<Note> getByUserId(long userId);
 
-    Note getById(int id);
+    Note getById(long id);
 
     void update(Note note);
+
+    void delete(long noteId);
 }

@@ -25,15 +25,20 @@ public class NoteServiceImpl implements NoteService {
         return jpaProxyNoteRepository.all();
     }
 
-    public List<Note> getByUserId(int userId) {
+    public List<Note> getByUserId(long userId) {
         return jpaProxyNoteRepository.getByUserId(userId);
     }
 
-    public Note getById(int id) {
+    public Note getById(long id) {
         return jpaProxyNoteRepository.getById(id);
     }
 
     public void update(Note note) {
         jpaProxyNoteRepository.update(note);
+    }
+
+    @Override
+    public void delete(long noteId) {
+        jpaProxyNoteRepository.delete(noteId);
     }
 }

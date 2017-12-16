@@ -25,11 +25,16 @@ public class TagServiceImpl implements TagService {
         return jpaProxyTagRepository.all();
     }
 
-    public Tag getById(int id) {
+    public Tag getById(long id) {
         return jpaProxyTagRepository.getById(id);
     }
 
     public void update(Tag tag) {
         jpaProxyTagRepository.update(tag);
+    }
+
+    @Override
+    public void delete(long tagId) {
+        jpaProxyTagRepository.delete(tagId);
     }
 }

@@ -10,5 +10,9 @@ public interface NotebookRepository {
 
     List<Notebook> all();
 
-    List<Notebook> getByUserId(int userId);
+    List<Notebook> getByUserId(long userId);
+
+    void delete(Notebook notebook);
+
+    Notebook getById(long id);
 }

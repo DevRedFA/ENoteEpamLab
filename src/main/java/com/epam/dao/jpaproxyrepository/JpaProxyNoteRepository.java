@@ -36,6 +36,21 @@ public class JpaProxyNoteRepository implements NoteRepository {
         return noteMapper.noteEntitiesToNotes(jpaRepository.findAll());
     }
 
+    @Override
+    public List<Note> getByUserId(long userId) {
+        return noteMapper.noteEntitiesToNotes(jpaRepository.findAllByUserId(userId));
+    }
+
+    @Override
+    public Note getById(long id) {
+        return noteMapper.noteEntityToNote(jpaRepository.getOne(id));
+    }
+
+    @Override
+    public void delete(long noteId) {
+        jpaRepository.delete(noteId);
+    }
+
     public List<Note> getByUserId(int userId) {
         List<NoteJpaEntity> entities = jpaRepository.findAll();
         List<Note> notes = new ArrayList<Note>(entities.size());

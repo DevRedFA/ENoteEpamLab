@@ -10,7 +10,9 @@ public interface NoteRepository {
 
     List<Note> all();
 
-    List<Note> getByUserId(int userId);
+    List<Note> getByUserId(long userId);
 
-    Note getById(int id);
+    Note getById(long id);
+
+    void delete(long noteId);
 }

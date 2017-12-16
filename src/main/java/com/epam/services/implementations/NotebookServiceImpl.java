@@ -21,8 +21,13 @@ public class NotebookServiceImpl implements NotebookService {
         return jpaProxyNotebookRepository.save(notebook);
     }
 
-    public List<Notebook> getByUserId(int id) {
+    public List<Notebook> getByUserId(long id) {
         return jpaProxyNotebookRepository.getByUserId(id);
+    }
+
+    @Override
+    public Notebook getById(long id) {
+        return jpaProxyNotebookRepository.getById(id);
     }
 
     public List<Notebook> all() {
@@ -31,5 +36,10 @@ public class NotebookServiceImpl implements NotebookService {
 
     public void update(Notebook notebook) {
         jpaProxyNotebookRepository.update(notebook);
+    }
+
+    @Override
+    public void delete(Notebook notebook) {
+        jpaProxyNotebookRepository.delete(notebook);
     }
 }

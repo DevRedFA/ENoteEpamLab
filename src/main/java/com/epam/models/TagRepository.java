@@ -9,4 +9,8 @@ public interface TagRepository {
     void update(Tag tag);
 
     List<Tag> all();
+
+    Tag getById(long id);
+
+    void delete(long tagId);
 }

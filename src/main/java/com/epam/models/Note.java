@@ -4,6 +4,7 @@ package com.epam.models;
 import lombok.*;
 
 import java.sql.Date;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
@@ -25,6 +26,8 @@ public class Note {
 
     @NonNull
     private Notebook notebook;
+
+    private Set<Tag> tags;
 
     private Date created;
 

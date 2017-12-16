@@ -40,7 +40,11 @@ public class JpaProxyUserRepository implements UserRepository {
         return userMapper.userEntitiesToUsers(entities);
     }
 
-    public User getById(int userId) {
+    public void deleteById(long userId) {
+        jpaRepository.delete(userId);
+    }
+
+    public User getById(long userId) {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         for (UserJpaEntity entity : entities) {
             if (entity.getId() == userId) {

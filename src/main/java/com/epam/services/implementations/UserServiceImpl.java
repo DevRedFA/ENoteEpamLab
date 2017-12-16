@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         return jpaProxyUserRepository.all();
     }
 
-    public User getById(int userId) {
+    public User getById(long userId) {
         return jpaProxyUserRepository.getById(userId);
     }
 
@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void delete(User user) {
         jpaProxyUserRepository.delete(user);
+    }
+
+    @Override
+    public void delete(long userId) {
+        jpaProxyUserRepository.deleteById(userId);
     }
 }

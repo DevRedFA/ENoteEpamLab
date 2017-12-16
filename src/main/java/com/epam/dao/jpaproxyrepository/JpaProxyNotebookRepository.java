@@ -36,6 +36,11 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
         return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAll());
     }
 
+    @Override
+    public List<Notebook> getByUserId(long userId) {
+        return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAllByUserId(userId));
+    }
+
     public List<Notebook> getByUserId(int userId) {
         List<NotebookJpaEntity> entities = jpaRepository.findAll();
         List<Notebook> notebooks = new ArrayList<Notebook>(entities.size());
@@ -47,5 +52,13 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
         return notebooks;
     }
 
+    @Override
+    public void delete(Notebook notebook) {
+        jpaRepository.delete((long) notebook.getId());
+    }
 
+    @Override
+    public Notebook getById(long id) {
+        return notebookMapper.notebookEntityToNotebook(jpaRepository.getOne(id));
+    }
 }
