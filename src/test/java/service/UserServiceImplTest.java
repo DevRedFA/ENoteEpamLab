@@ -34,9 +34,13 @@ public class UserServiceImplTest {
         userList.add(new User("alinag", "123456"));
 
         User user = new User("alina", "123");
+        User newUser = new User("alina1", "1231");
 
         when(jpaProxyUserRepository.all()).thenReturn(userList);
         when(jpaProxyUserRepository.getByName("alina")).thenReturn(user);
+        when(jpaProxyUserRepository.getById(1)).thenReturn(user);
+        when(jpaProxyUserRepository.update(1, newUser)).thenReturn(newUser);
+        when(jpaProxyUserRepository.save(newUser)).thenReturn(newUser);
     }
 
     @Test
@@ -50,6 +54,29 @@ public class UserServiceImplTest {
         User user = userService.getByName("alina");
         assertEquals("alina", user.getName());
         assertEquals("123", user.getPassword());
+    }
+
+    @Test
+    public void getByIdTest() {
+        User user = userService.getById(1);
+        assertEquals("alina", user.getName());
+        assertEquals("123", user.getPassword());
+    }
+
+    @Test
+    public void updateTest() {
+        User newUser = new User("alina1", "1231");
+        User user = userService.update(1, newUser);
+        assertEquals("alina1", user.getName());
+        assertEquals("1231", user.getPassword());
+    }
+
+    @Test
+    public void saveTest() {
+        User newUser = new User("alina1", "1231");
+        User user = userService.save(newUser);
+        assertEquals("alina1", user.getName());
+        assertEquals("1231", user.getPassword());
     }
 
 }

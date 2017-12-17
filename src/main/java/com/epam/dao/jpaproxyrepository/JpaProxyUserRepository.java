@@ -34,6 +34,17 @@ public class JpaProxyUserRepository implements UserRepository {
     }
 
     @Override
+    public User update(long id, User user) {
+        User updatedUser = getById(id);
+        if (updatedUser != null) {
+            updatedUser.setName(user.getName());
+            updatedUser.setPassword(user.getPassword());
+            jpaRepository.save(userMapper.userToUserEntity(updatedUser));
+        }
+        return updatedUser;
+    }
+
+    @Override
     public void delete(User user) {
         jpaRepository.delete(userMapper.userToUserEntity(user));
     }

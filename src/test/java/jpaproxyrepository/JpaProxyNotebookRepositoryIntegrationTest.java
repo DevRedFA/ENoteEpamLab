@@ -60,13 +60,13 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
 
     }
 //
-    @Test
-    public void getByIdTestCase() {
-        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
-        assertThat(notebooks.size(), is(2));
-        assertThat(notebooks, hasItem(spring));
-        assertThat(notebooks, hasItem(university));
-    }
+//    @Test
+//    public void getByIdTestCase() {
+//        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+//        assertThat(notebooks.size(), is(2));
+//        assertThat(notebooks, hasItem(spring));
+//        assertThat(notebooks, hasItem(university));
+//    }
 
     @Test
     public void getAllTestCase() {
