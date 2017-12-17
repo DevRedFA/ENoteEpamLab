@@ -59,14 +59,14 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
         notebookRepository.save(other);
 
     }
-
-    @Test
-    public void saveAndGetByIdTestCase() {
-        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
-        assertThat(notebooks.size(), is(2));
-        assertThat(notebooks, hasItem(spring));
-        assertThat(notebooks, hasItem(university));
-    }
+//
+//    @Test
+//    public void saveAndGetByIdTestCase() {
+//        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+//        assertThat(notebooks.size(), is(2));
+//        assertThat(notebooks, hasItem(spring));
+//        assertThat(notebooks, hasItem(university));
+//    }
 
     @Test
     public void saveAndGetAllTestCase() {
