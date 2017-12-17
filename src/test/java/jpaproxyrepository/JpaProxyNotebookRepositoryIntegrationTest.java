@@ -64,7 +64,7 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
 
     @Test
     public void saveAndGetByIdTestCase() {
-        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+        List<Notebook> notebooks = notebookRepository.findByUserId(daveId);
         assertThat(notebooks.size(), is(2));
         assertThat(notebooks, hasItem(spring));
         assertThat(notebooks, hasItem(university));

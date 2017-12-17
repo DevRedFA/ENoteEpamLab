@@ -22,8 +22,28 @@ public class TagServiceImpl implements TagService {
         return jpaProxyTagRepository.save(tag);
     }
 
+    @Override
+    public Tag save(long userId, Tag tag) {
+        return null;
+    }
+
     public List<Tag> all() {
         return jpaProxyTagRepository.all();
+    }
+
+    @Override
+    public List<Tag> getByUserId(long id) {
+        return null;
+    }
+
+    @Override
+    public List<Tag> getByNotebookId(long notebookId) {
+        return null;
+    }
+
+    @Override
+    public List<Tag> getByNoteId(long notebookId) {
+        return null;
     }
 
     public Tag getById(long id) {
@@ -32,6 +52,11 @@ public class TagServiceImpl implements TagService {
 
     public void update(Tag tag) {
         jpaProxyTagRepository.update(tag);
+    }
+
+    @Override
+    public void update(long id, Tag tag) {
+
     }
 
     @Override

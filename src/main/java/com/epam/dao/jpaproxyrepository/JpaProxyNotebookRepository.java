@@ -39,8 +39,8 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
     }
 
     @Override
-    public List<Notebook> getByUserId(long userId) {
-        return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAllByUserId(userId));
+    public List<Notebook> findByUserId(long userId) {
+        return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findByUser_Id(userId));
     }
 
     @Override

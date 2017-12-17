@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface NotebookJpaRepository extends JpaRepository<NotebookJpaEntity, Long> {
 
-    List<NotebookJpaEntity> findAllByUserId(long userId);
+    List<NotebookJpaEntity> findByUser_Id(long userId);
 
 }

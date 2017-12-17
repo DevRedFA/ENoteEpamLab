@@ -43,7 +43,7 @@ public class NotebookServiceImplTest {
 
 
         when(jpaProxyNotebookRepository.all()).thenReturn(notebooks);
-        when(jpaProxyNotebookRepository.getByUserId(1)).thenReturn(notebooks1);
+        when(jpaProxyNotebookRepository.findByUserId(1)).thenReturn(notebooks1);
     }
 
     @Test
