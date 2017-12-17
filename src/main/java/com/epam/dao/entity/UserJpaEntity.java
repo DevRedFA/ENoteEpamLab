@@ -17,7 +17,7 @@ public class UserJpaEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id",
             nullable = false)
-    private int id;
+    private long id;
 
     @NonNull
     @Column(name = "name",

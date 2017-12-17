@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Tag {
 
-    private int id;
+    private long id;
     @NonNull
     private String name;
 }
