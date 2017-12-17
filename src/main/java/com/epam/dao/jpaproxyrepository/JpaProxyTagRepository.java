@@ -47,15 +47,4 @@ public class JpaProxyTagRepository implements TagRepository {
     public void delete(long tagId) {
         jpaRepository.delete(tagId);
     }
-
-    @Override
-    public Tag getById(int id) {
-        List<TagJpaEntity> entities = jpaRepository.findAll();
-        for (TagJpaEntity entity : entities) {
-            if (entity.getId() == id) {
-                return tagMapper.tagEntityToTag(entity);
-            }
-        }
-        return null;
-    }
 }

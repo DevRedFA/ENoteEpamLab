@@ -28,6 +28,8 @@ public class NoteServiceImplTest {
     @InjectMocks
     private NoteService noteService = new NoteServiceImpl();
 
+    private Note newNote;
+
     @Before
     public void init() {
         User user = new User("alina", "123");
@@ -40,10 +42,12 @@ public class NoteServiceImplTest {
         List<Note> notes = new ArrayList<>();
         notes.addAll(notes1);
         notes.add(new Note("note2", "text2", new User(), new Notebook()));
+        newNote = new Note("note3", "text3", user, notebook);
 
         when(jpaProxyNoteRepository.all()).thenReturn(notes);
         when(jpaProxyNoteRepository.getById(1)).thenReturn(note);
         when(jpaProxyNoteRepository.getByUserId(1)).thenReturn(notes1);
+        when(jpaProxyNoteRepository.save(newNote)).thenReturn(newNote);
     }
 
     @Test
@@ -53,7 +57,7 @@ public class NoteServiceImplTest {
     }
 
     @Test
-    public void getByUserId() {
+    public void getByUserIdTest() {
         List<Note> notes = noteService.getByUserId(1);
         assertEquals(2, notes.size());
     }
@@ -65,5 +69,11 @@ public class NoteServiceImplTest {
         assertEquals("text", note.getText());
         assertEquals("notebook", note.getNotebook().getName());
         assertEquals("alina", note.getUser().getName());
+    }
+
+    @Test
+    public void saveTest() {
+        Note note = noteService.save(newNote);
+        assertEquals(newNote, note);
     }
 }

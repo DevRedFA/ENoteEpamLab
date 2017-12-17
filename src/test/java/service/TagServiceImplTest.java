@@ -26,21 +26,40 @@ public class TagServiceImplTest {
     @InjectMocks
     private TagService tagService = new TagServiceImpl();
 
+    private Tag newTag;
+
     @Before
     public void init() {
         List<Tag> tags = new ArrayList<>();
-        tags.add(new Tag("work"));
+        Tag work = new Tag("work");
+        tags.add(work);
         tags.add(new Tag("study"));
         tags.add(new Tag("university"));
         tags.add(new Tag("spring"));
+        newTag = new Tag("newTag");
 
         when(jpaProxyTagRepository.all()).thenReturn(tags);
+        when(jpaProxyTagRepository.getById(1)).thenReturn(work);
+        when(jpaProxyTagRepository.save(newTag)).thenReturn(newTag);
     }
 
     @Test
     public void allTest() {
         List<Tag> tags = tagService.all();
         assertEquals(4, tags.size());
+    }
+
+    @Test
+    public void getByIdTest() {
+        Tag tag = tagService.getById(1);
+        assertEquals(tag.getName(), "work");
+    }
+
+    @Test
+    public void saveTest() {
+        Tag tag = tagService.save(newTag);
+        assertEquals(tag.getName(), "newTag");
+        assertEquals(newTag, tag);
     }
 
 

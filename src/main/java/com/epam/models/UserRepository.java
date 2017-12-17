@@ -8,6 +8,8 @@ public interface UserRepository {
 
     void update(User user);
 
+    User update(long id, User user);
+
     void delete(User user);
 
     List<User> all();

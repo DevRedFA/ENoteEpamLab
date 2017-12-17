@@ -13,6 +13,4 @@ public interface TagRepository {
     Tag getById(long id);
 
     void delete(long tagId);
-
-    Tag getById(int id);
 }
