@@ -5,9 +5,7 @@ import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
 import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
-import com.epam.models.Note;
-import com.epam.models.Notebook;
-import com.epam.models.User;
+import com.epam.models.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -33,16 +31,16 @@ import static org.junit.Assert.assertThat;
 public class JpaProxyNoteRepositoryIntegrationTest {
 
     @Autowired
-    private JpaProxyNotebookRepository notebookRepository;
+    private NotebookRepository notebookRepository;
 
     @Autowired
-    private JpaProxyUserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private JpaProxyNoteRepository noteRepository;
+    private NoteRepository noteRepository;
 
     @Autowired
-    private JpaProxyTagRepository tagRepository;
+    private TagRepository tagRepository;
 
     Note note;
 

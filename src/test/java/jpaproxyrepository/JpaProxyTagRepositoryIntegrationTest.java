@@ -3,6 +3,7 @@ package jpaproxyrepository;
 import com.epam.config.RootConfig;
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
 import com.epam.models.Tag;
+import com.epam.models.TagRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.List;
 
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
@@ -23,10 +25,11 @@ import static org.junit.Assert.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+@Transactional
 public class JpaProxyTagRepositoryIntegrationTest {
 
     @Autowired
-    private JpaProxyTagRepository repository;
+    private TagRepository repository;
 
     @Test
     public void saveToRepositoryTestCase() {
