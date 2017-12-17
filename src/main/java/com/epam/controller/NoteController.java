@@ -37,7 +37,7 @@ public class NoteController {
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public String getAllNotesFromUser(@PathVariable long userId, ModelMap model) {
-        Set<Tag> tags = userService.getById(userId).getTags();
+        List<Note> notes = noteService.getByUserId(userId);
         //TODO: return tags to model
         return "user";
     }
@@ -47,8 +47,8 @@ public class NoteController {
                                              ModelMap model) {
         List<Note> resultNotes = new ArrayList<>();
         Tag tag = tagService.getById(tagId);
-        User user = userService.getById(userId);
-        for (Note note : user.getNotes()) {
+        List<Note> notes = noteService.getByUserId(userId);
+        for (Note note : notes) {
             if (note.getTags().contains(tag)) {
                 resultNotes.add(note);
             }
