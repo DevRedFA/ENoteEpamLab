@@ -1,8 +1,6 @@
 package jpaproxyrepository;
 
 import com.epam.config.RootConfig;
-import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
-import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
 import com.epam.models.Notebook;
 import com.epam.models.NotebookRepository;
 import com.epam.models.User;
@@ -62,16 +60,16 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
 
     }
 //
-//    @Test
-//    public void saveAndGetByIdTestCase() {
-//        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
-//        assertThat(notebooks.size(), is(2));
-//        assertThat(notebooks, hasItem(spring));
-//        assertThat(notebooks, hasItem(university));
-//    }
+    @Test
+    public void getByIdTestCase() {
+        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+        assertThat(notebooks.size(), is(2));
+        assertThat(notebooks, hasItem(spring));
+        assertThat(notebooks, hasItem(university));
+    }
 
     @Test
-    public void saveAndGetAllTestCase() {
+    public void getAllTestCase() {
         List<Notebook> notebooks = notebookRepository.all();
         assertThat(notebooks.size(), is(3));
         assertThat(notebooks, hasItem(spring));
