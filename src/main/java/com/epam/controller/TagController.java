@@ -4,6 +4,7 @@ package com.epam.controller;
 import com.epam.models.Note;
 import com.epam.models.Notebook;
 import com.epam.models.Tag;
+import com.epam.models.User;
 import com.epam.services.interfaces.NoteService;
 import com.epam.services.interfaces.NotebookService;
 import com.epam.services.interfaces.TagService;
@@ -36,37 +37,21 @@ public class TagController {
     private NoteService noteService;
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public String getAllUserTags(@PathVariable long userId,
-                                 ModelMap model) {
+    public String getAllTagsFromUser(@PathVariable long userId,
+                                     ModelMap model) {
         Set<Tag> tags = userService.getById(userId).getTags();
         //TODO: return to form tags instance
         return "user";
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}/{tagId}", method = RequestMethod.GET)
-    public String getAllNotebookWithTag(@PathVariable long userId, @PathVariable long notebookId,
-                                        @PathVariable long tagId, ModelMap model) {
-        List<Notebook> result = new ArrayList<>();
-        Tag tagToFilter = tagService.getById(tagId);
-        List<Notebook> notebooks = notebookService.getByUserId(userId);
-        for (Notebook notebook : notebooks) {
-            for (Note note : notebook.getNotes()) {
-                if (note.getTags().contains(tagToFilter)) {
-                    result.add(notebook);
-                    break;
-                }
-            }
-        }
-        //TODO: return to form result instance
-        return "user";
-    }
-
-    @RequestMapping(value = "/{userId}/{notebookId}/{noteId}/tags", method = RequestMethod.GET)
-    public String getAllNoteTags(@PathVariable long userId, @PathVariable long notebookId,
-                                 @PathVariable long noteId, ModelMap model) {
-        Note note = noteService.getById(noteId);
-        Set<Tag> tags = note.getTags();
-        //TODO: return tags to model
+    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
+    public String createTag(@PathVariable long userId, ModelMap model) {
+        Tag tag = new Tag();
+        User user = userService.getById(userId);
+        user.getTags().add(tag);
+        userService.update(user);
+        //TODO: set parameters from model;
+        tagService.save(tag);
         return "user";
     }
 
@@ -84,13 +69,24 @@ public class TagController {
         return "user";
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
-    public String createTag(@PathVariable long userId, ModelMap model) {
-        Tag tag = new Tag();
-        //TODO: set parameters from model;
-        tagService.save(tag);
+    @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.GET)
+    public String getAllTagsFromNotebook(@PathVariable long userId, @PathVariable long notebookId,
+                                         ModelMap model) {
+        List<Tag> tags = new ArrayList<>();
+        Notebook notebook = notebookService.getById(notebookId);
+        for (Note note : notebook.getNotes()) {
+            tags.addAll(note.getTags());
+        }
+        //TODO: return to form tags instance
         return "user";
     }
 
-
+    @RequestMapping(value = "/{userId}/{notebookId}/{noteId}", method = RequestMethod.GET)
+    public String getAllTagsFromNote(@PathVariable long userId, @PathVariable long notebookId,
+                                     @PathVariable long noteId, ModelMap model) {
+        Note note = noteService.getById(noteId);
+        Set<Tag> tags = note.getTags();
+        //TODO: return tags to model
+        return "user";
+    }
 }

@@ -22,4 +22,6 @@ public class User {
 
     private Set<Notebook> notebooks;
 
+    private Set<Note> notes;
+
 }
