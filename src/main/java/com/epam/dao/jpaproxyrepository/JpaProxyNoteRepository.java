@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -49,26 +48,5 @@ public class JpaProxyNoteRepository implements NoteRepository {
     @Override
     public void delete(long noteId) {
         jpaRepository.delete(noteId);
-    }
-
-    public List<Note> getByUserId(int userId) {
-        List<NoteJpaEntity> entities = jpaRepository.findAll();
-        List<Note> notes = new ArrayList<Note>(entities.size());
-        for (NoteJpaEntity entity : entities) {
-            if (entity.getUser().getId() == userId) {
-                notes.add(noteMapper.noteEntityToNote(entity));
-            }
-        }
-        return notes;
-    }
-
-    public Note getById(int id) {
-        List<NoteJpaEntity> entities = jpaRepository.findAll();
-        for (NoteJpaEntity entity : entities) {
-            if (entity.getId() == id) {
-                return noteMapper.noteEntityToNote(entity);
-            }
-        }
-        return null;
     }
 }

@@ -50,11 +50,11 @@ public class JpaProxyNoteRepositoryIntegrationTest {
     public void init() {
         User dave = new User("Dave", "Mathews");
         dave = userRepository.save(dave);
-        int daveId = dave.getId();
+        long daveId = dave.getId();
 
         Notebook spring = new Notebook("Spring courses Epam", dave);
         spring = notebookRepository.save(spring);
-        int springId = spring.getId();
+        long springId = spring.getId();
 
         note = new Note("note_name", "note", dave, spring);
         noteRepository.save(note);

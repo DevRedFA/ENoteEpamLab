@@ -12,7 +12,7 @@ import java.util.Set;
 @EqualsAndHashCode(of = "id")
 public class User {
 
-    private int id;
+    private long id;
     @NonNull
     private String name;
     @NonNull

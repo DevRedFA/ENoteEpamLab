@@ -1,0 +1,69 @@
+package service;
+
+import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
+import com.epam.models.Note;
+import com.epam.models.Notebook;
+import com.epam.models.User;
+import com.epam.services.implementations.NoteServiceImpl;
+import com.epam.services.interfaces.NoteService;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.when;
+
+@RunWith(MockitoJUnitRunner.class)
+public class NoteServiceImplTest {
+
+    @Mock
+    private JpaProxyNoteRepository jpaProxyNoteRepository;
+
+    @InjectMocks
+    private NoteService noteService = new NoteServiceImpl();
+
+    @Before
+    public void init() {
+        User user = new User("alina", "123");
+        Notebook notebook = new Notebook("notebook", user);
+
+        Note note = new Note("note", "text", user, notebook);
+        List<Note> notes1 = new ArrayList<>();
+        notes1.add(note);
+        notes1.add(new Note("note1", "text1", user, notebook));
+        List<Note> notes = new ArrayList<>();
+        notes.addAll(notes1);
+        notes.add(new Note("note2", "text2", new User(), new Notebook()));
+
+        when(jpaProxyNoteRepository.all()).thenReturn(notes);
+        when(jpaProxyNoteRepository.getById(1)).thenReturn(note);
+        when(jpaProxyNoteRepository.getByUserId(1)).thenReturn(notes1);
+    }
+
+    @Test
+    public void allTest() {
+        List<Note> notes = noteService.all();
+        assertEquals(3, notes.size());
+    }
+
+    @Test
+    public void getByUserId() {
+        List<Note> notes = noteService.getByUserId(1);
+        assertEquals(2, notes.size());
+    }
+
+    @Test
+    public void getByIdTest() {
+        Note note = noteService.getById(1);
+        assertEquals("note", note.getName());
+        assertEquals("text", note.getText());
+        assertEquals("notebook", note.getNotebook().getName());
+        assertEquals("alina", note.getUser().getName());
+    }
+}

@@ -38,8 +38,8 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
     private Notebook spring;
     private Notebook university;
     private Notebook other;
-    private int daveId;
-    private int carterId;
+    private long daveId;
+    private long carterId;
 
     @Before
     public void init() {

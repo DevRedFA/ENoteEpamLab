@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -39,17 +38,6 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
     @Override
     public List<Notebook> getByUserId(long userId) {
         return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAllByUserId(userId));
-    }
-
-    public List<Notebook> getByUserId(int userId) {
-        List<NotebookJpaEntity> entities = jpaRepository.findAll();
-        List<Notebook> notebooks = new ArrayList<Notebook>(entities.size());
-        for (NotebookJpaEntity entity : entities) {
-            if (entity.getUser().getId() == userId) {
-                notebooks.add(notebookMapper.notebookEntityToNotebook(entity));
-            }
-        }
-        return notebooks;
     }
 
     @Override

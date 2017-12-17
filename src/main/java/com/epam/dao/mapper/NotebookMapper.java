@@ -20,5 +20,5 @@ public interface NotebookMapper {
 
     NotebookJpaEntity notebookToNotebookEntity(Notebook notebook);
 
-    List<NotebookJpaEntity> notebooksToNotebookEntities(List<Notebook> notebookss);
+    List<NotebookJpaEntity> notebooksToNotebookEntities(List<Notebook> notebooks);
 }
