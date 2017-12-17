@@ -44,8 +44,8 @@ public class TagController {
     }
 
     @RequestMapping(value = "/{userId}/{notebookId}/{tagId}", method = RequestMethod.GET)
-    public String getAllNotebookTags(@PathVariable long userId, @PathVariable long notebookId,
-                                     @PathVariable long tagId, ModelMap model) {
+    public String getAllNotebookWithTag(@PathVariable long userId, @PathVariable long notebookId,
+                                        @PathVariable long tagId, ModelMap model) {
         List<Notebook> result = new ArrayList<>();
         Tag tagToFilter = tagService.getById(tagId);
         List<Notebook> notebooks = notebookService.getByUserId(userId);
@@ -61,7 +61,7 @@ public class TagController {
         return "user";
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}/{noteId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{userId}/{notebookId}/{noteId}/tags", method = RequestMethod.GET)
     public String getAllNoteTags(@PathVariable long userId, @PathVariable long notebookId,
                                  @PathVariable long noteId, ModelMap model) {
         Note note = noteService.getById(noteId);

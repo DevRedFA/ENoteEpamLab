@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.epam</groupId>
-    <artifactId>Enote</artifactId>
+    <artifactId>enote</artifactId>
     <packaging>war</packaging>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Enote Maven Webapp</name>
+    <name>enote</name>
     <url>http://maven.apache.org</url>
 
     <!-- Properties -->
@@ -24,6 +24,8 @@
         <spring.version>4.3.13.RELEASE</spring.version>
         <spring.data.version>1.10.1.RELEASE</spring.data.version>
         <mapstruct.mapper.version>1.2.0.Final</mapstruct.mapper.version>
+        <springfox-swagger.version>2.7.0</springfox-swagger.version>
+        <jackson.version>2.8.5</jackson.version>
     </properties>
 
     <dependencies>
@@ -116,9 +118,46 @@
             <version>3.1.0</version>
         </dependency>
 
+        <!-- marshalling -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!--Swagger-->
+        <!--<dependency>-->
+        <!--<groupId>io.swagger</groupId>-->
+        <!--<artifactId>swagger-jaxrs</artifactId>-->
+        <!--<version>1.5.17</version>-->
+        <!--</dependency>-->
+
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox-swagger.version}</version>
+        </dependency>
+
+        <!--Aspectj-->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>1.7.0</version>
+        </dependency>
     </dependencies>
     <build>
-
+        <finalName>enote</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -165,6 +204,5 @@
 
             </plugin>
         </plugins>
-        <finalName>Enote</finalName>
     </build>
 </project>

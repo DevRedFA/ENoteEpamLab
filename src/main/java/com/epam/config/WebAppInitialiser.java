@@ -3,6 +3,7 @@ package com.epam.config;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServletInitializer {
+
     public WebAppInitialiser() {
     }
 
@@ -11,7 +12,7 @@ public class WebAppInitialiser extends AbstractAnnotationConfigDispatcherServlet
     }
 
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class};
+        return new Class[]{WebConfig.class, SwaggerConfig.class};
     }
 
     protected String[] getServletMappings() {
