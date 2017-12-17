@@ -1,5 +1,6 @@
 package com.epam.models;
 
+
 import java.util.List;
 
 public interface NotebookRepository {
@@ -10,9 +11,11 @@ public interface NotebookRepository {
 
     List<Notebook> all();
 
-    List<Notebook> getByUserId(long userId);
+    List<Notebook> findByUserId(long userId);
 
     void delete(Notebook notebook);
+
+    void delete(long notebookId);
 
     Notebook getById(long id);
 }

@@ -2,6 +2,7 @@ package service;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
 import com.epam.models.Notebook;
+import com.epam.models.NotebookRepository;
 import com.epam.models.User;
 import com.epam.services.implementations.NotebookServiceImpl;
 import com.epam.services.interfaces.NotebookService;
@@ -22,7 +23,7 @@ import static org.mockito.Mockito.when;
 public class NotebookServiceImplTest {
 
     @Mock
-    private JpaProxyNotebookRepository jpaProxyNotebookRepository;
+    private NotebookRepository jpaProxyNotebookRepository;
 
     @InjectMocks
     private NotebookService notebookService = new NotebookServiceImpl();
@@ -47,7 +48,7 @@ public class NotebookServiceImplTest {
 
 
         when(jpaProxyNotebookRepository.all()).thenReturn(notebooks);
-        when(jpaProxyNotebookRepository.getByUserId(1)).thenReturn(notebooks1);
+        when(jpaProxyNotebookRepository.findByUserId(1)).thenReturn(notebooks1);
         when(jpaProxyNotebookRepository.getById(1)).thenReturn(notebook1);
         when(jpaProxyNotebookRepository.save(newNotebook)).thenReturn(newNotebook);
     }

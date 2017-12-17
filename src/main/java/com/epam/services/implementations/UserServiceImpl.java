@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(long id, User user) {
         User oldUser = jpaProxyUserRepository.getById(id);
+        //TODO: check fields for null
         oldUser.setName(user.getName());
         oldUser.setNotebooks(user.getNotebooks());
         oldUser.setPassword(user.getPassword());

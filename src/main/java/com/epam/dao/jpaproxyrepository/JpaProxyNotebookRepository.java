@@ -39,13 +39,18 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
     }
 
     @Override
-    public List<Notebook> getByUserId(long userId) {
-        return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAllByUserId(userId));
+    public List<Notebook> findByUserId(long userId) {
+        return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findByUser_Id(userId));
     }
 
     @Override
     public void delete(Notebook notebook) {
         jpaRepository.delete((long) notebook.getId());
+    }
+
+    @Override
+    public void delete(long notebookId) {
+        jpaRepository.delete(notebookId);
     }
 
     @Override
