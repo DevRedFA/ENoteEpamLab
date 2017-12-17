@@ -66,7 +66,7 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
 
     @Test
     public void getByUserIdTest() {
-        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+        List<Notebook> notebooks = notebookRepository.findByUserId(daveId);
         assertThat(notebooks.size(), is(2));
         assertThat(notebooks, hasItem(spring));
         assertThat(notebooks, hasItem(university));
@@ -101,7 +101,7 @@ public class JpaProxyNotebookRepositoryIntegrationTest {
     @Test
     public void deleteTest() {
         notebookRepository.delete(spring);
-        List<Notebook> notebooks = notebookRepository.getByUserId(daveId);
+        List<Notebook> notebooks = notebookRepository.findByUserId(daveId);
         assertTrue(!notebooks.contains(spring));
     }
 
