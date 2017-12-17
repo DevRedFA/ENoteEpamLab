@@ -49,6 +49,11 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
     }
 
     @Override
+    public void delete(long notebookId) {
+        jpaRepository.delete(notebookId);
+    }
+
+    @Override
     public Notebook getById(long id) {
         return notebookMapper.notebookEntityToNotebook(jpaRepository.getOne(id));
     }

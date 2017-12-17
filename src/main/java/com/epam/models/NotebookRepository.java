@@ -15,5 +15,7 @@ public interface NotebookRepository {
 
     void delete(Notebook notebook);
 
+    void delete(long notebookId);
+
     Notebook getById(long id);
 }

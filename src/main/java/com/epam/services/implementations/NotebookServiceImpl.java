@@ -1,11 +1,9 @@
 package com.epam.services.implementations;
 
-import com.epam.models.Note;
-import com.epam.models.Notebook;
-import com.epam.models.NotebookRepository;
-import com.epam.models.Tag;
+import com.epam.models.*;
 import com.epam.services.interfaces.NotebookService;
 import com.epam.services.interfaces.TagService;
+import com.epam.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -24,13 +22,27 @@ public class NotebookServiceImpl implements NotebookService {
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private UserService userService;
+
     public Notebook save(Notebook notebook) {
         return jpaProxyNotebookRepository.save(notebook);
     }
 
     @Override
     public Notebook save(long userId, Notebook notebook) {
-        return null;
+        User user = userService.getById(userId);
+        user.getNotebooks().add(notebook);
+        userService.update(user);
+        //TODO: something strange, need to think
+        Notebook resultNotebook = null;
+        List<Notebook> notebooks = this.getByUserId(userId);
+        for (Notebook notebook1 : notebooks) {
+            if (notebook1.equals(notebook)) {
+                resultNotebook = notebook1;
+            }
+        }
+        return resultNotebook;
     }
 
     public List<Notebook> getByUserId(long id) {
@@ -68,7 +80,12 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void update(long notebookId, Notebook notebook) {
-
+        Notebook oldNotebook = getById(notebookId);
+        //TODO: check fields for null
+        oldNotebook.setName(notebook.getName());
+        oldNotebook.setNotes(notebook.getNotes());
+        oldNotebook.setUser(notebook.getUser());
+        update(notebook);
     }
 
     @Override
@@ -78,6 +95,6 @@ public class NotebookServiceImpl implements NotebookService {
 
     @Override
     public void delete(long notebookId) {
-
+        jpaProxyNotebookRepository.delete(notebookId);
     }
 }

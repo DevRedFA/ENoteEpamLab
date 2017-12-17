@@ -1,7 +1,9 @@
 package com.epam.services.implementations;
 
-import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
-import com.epam.models.*;
+import com.epam.models.Note;
+import com.epam.models.NoteRepository;
+import com.epam.models.Notebook;
+import com.epam.models.Tag;
 import com.epam.services.interfaces.NoteService;
 import com.epam.services.interfaces.NotebookService;
 import com.epam.services.interfaces.TagService;
@@ -33,7 +35,18 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note save(long notebookId, Note note) {
-        return null;
+        Notebook notebook = notebookService.getById(notebookId);
+        notebook.getNotes().add(note);
+        notebookService.update(notebook);
+        //TODO: something strange, need to think
+        Note resultNote = null;
+        List<Note> notes = this.getByNotebookId(notebookId);
+        for (Note note1 : notes) {
+            if (note1.equals(note)) {
+                resultNote = note1;
+            }
+        }
+        return resultNote;
     }
 
     public List<Note> all() {
@@ -54,7 +67,16 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public void update(long noteId, Note note) {
-
+        Note oldNote = this.getById(noteId);
+        //TODO: check fields for null
+        oldNote.setCreated(note.getCreated());
+        oldNote.setName(note.getName());
+        oldNote.setNotebook(note.getNotebook());
+        oldNote.setTags(note.getTags());
+        oldNote.setUser(note.getUser());
+        oldNote.setUpdated(note.getUpdated());
+        oldNote.setText(note.getText());
+        this.update(note);
     }
 
     @Override
