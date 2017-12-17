@@ -22,16 +22,18 @@ public class JpaProxyTagRepository implements TagRepository {
     @Autowired
     private TagMapper tagMapper;
 
+    @Override
     public Tag save(Tag newTag) {
         TagJpaEntity savedEntity = jpaRepository.save(tagMapper.tagToTagEntity(newTag));
         return tagMapper.tagEntityToTag(savedEntity);
     }
 
+    @Override
     public void update(Tag tag) {
         jpaRepository.save(tagMapper.tagToTagEntity(tag));
     }
 
-
+    @Override
     public List<Tag> all() {
         return tagMapper.tagEntitiesToTags(jpaRepository.findAll());
     }
@@ -46,6 +48,7 @@ public class JpaProxyTagRepository implements TagRepository {
         jpaRepository.delete(tagId);
     }
 
+    @Override
     public Tag getById(int id) {
         List<TagJpaEntity> entities = jpaRepository.findAll();
         for (TagJpaEntity entity : entities) {

@@ -22,15 +22,18 @@ public class JpaProxyNotebookRepository implements NotebookRepository {
     @Autowired
     private NotebookMapper notebookMapper;
 
+    @Override
     public Notebook save(Notebook notebook) {
         NotebookJpaEntity savedEntity = jpaRepository.save(notebookMapper.notebookToNotebookEntity(notebook));
         return notebookMapper.notebookEntityToNotebook(savedEntity);
     }
 
+    @Override
     public void update(Notebook notebook) {
         jpaRepository.save(notebookMapper.notebookToNotebookEntity(notebook));
     }
 
+    @Override
     public List<Notebook> all() {
         return notebookMapper.notebookEntitiesToNotebooks(jpaRepository.findAll());
     }

@@ -2,6 +2,7 @@ package com.epam.services.implementations;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
 import com.epam.models.Tag;
+import com.epam.models.TagRepository;
 import com.epam.services.interfaces.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    JpaProxyTagRepository jpaProxyTagRepository;
+    TagRepository jpaProxyTagRepository;
 
     public Tag save(Tag tag) {
         return jpaProxyTagRepository.save(tag);

@@ -55,3 +55,4 @@ ALTER TABLE notes
   ADD CONSTRAINT "notes_fk1" FOREIGN KEY (user_id) REFERENCES users (id);
 
 
+INSERT INTO users VALUES (1, 'Ivan', 'Password');

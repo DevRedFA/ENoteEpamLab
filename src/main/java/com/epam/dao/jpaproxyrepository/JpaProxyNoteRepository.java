@@ -22,15 +22,18 @@ public class JpaProxyNoteRepository implements NoteRepository {
     @Autowired
     private NoteMapper noteMapper;
 
+    @Override
     public Note save(Note note) {
         NoteJpaEntity savedEntity = jpaRepository.save(noteMapper.noteToNoteEntity(note));
         return noteMapper.noteEntityToNote(savedEntity);
     }
 
+    @Override
     public void update(Note note) {
         jpaRepository.save(noteMapper.noteToNoteEntity(note));
     }
 
+    @Override
     public List<Note> all() {
         return noteMapper.noteEntitiesToNotes(jpaRepository.findAll());
     }
