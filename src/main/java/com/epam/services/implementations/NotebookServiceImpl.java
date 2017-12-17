@@ -2,6 +2,7 @@ package com.epam.services.implementations;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
 import com.epam.models.Notebook;
+import com.epam.models.NotebookRepository;
 import com.epam.services.interfaces.NotebookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 public class NotebookServiceImpl implements NotebookService {
 
     @Autowired
-    JpaProxyNotebookRepository jpaProxyNotebookRepository;
+    NotebookRepository jpaProxyNotebookRepository;
 
     public Notebook save(Notebook notebook) {
         return jpaProxyNotebookRepository.save(notebook);

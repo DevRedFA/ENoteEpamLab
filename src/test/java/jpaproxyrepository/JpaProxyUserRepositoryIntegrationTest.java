@@ -10,6 +10,7 @@ import java.util.List;
 import com.epam.config.RootConfig;
 import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
 import com.epam.models.User;
+import com.epam.models.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class JpaProxyUserRepositoryIntegrationTest {
 
     @Autowired
-    private JpaProxyUserRepository repository;
+    private UserRepository repository;
 
     @Test
     @Transactional

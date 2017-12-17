@@ -22,28 +22,34 @@ public class JpaProxyUserRepository implements UserRepository {
     @Autowired
     private UserMapper userMapper;
 
+    @Override
     public User save(User newUser) {
         UserJpaEntity savedEntity = jpaRepository.save(userMapper.userToUserEntity(newUser));
         return userMapper.userEntityToUser(savedEntity);
     }
 
+    @Override
     public void update(User user) {
         jpaRepository.save(userMapper.userToUserEntity(user));
     }
 
+    @Override
     public void delete(User user) {
         jpaRepository.delete(userMapper.userToUserEntity(user));
     }
 
+    @Override
     public List<User> all() {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         return userMapper.userEntitiesToUsers(entities);
     }
 
+    @Override
     public void deleteById(long userId) {
         jpaRepository.delete(userId);
     }
 
+    @Override
     public User getById(long userId) {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         for (UserJpaEntity entity : entities) {
@@ -54,6 +60,7 @@ public class JpaProxyUserRepository implements UserRepository {
         return null;
     }
 
+    @Override
     public User getByName(String name) {
         List<UserJpaEntity> entities = jpaRepository.findAll();
         for (UserJpaEntity entity : entities) {

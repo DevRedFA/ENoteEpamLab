@@ -2,12 +2,17 @@ package com.epam.controller;
 
 import com.epam.models.User;
 import com.epam.services.interfaces.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -17,35 +22,30 @@ public class UserController {
     private UserService userService;
 
     @RequestMapping(method = RequestMethod.PUT)
-    public String createUser(ModelMap model) {
-        User user = User.builder()
-                .build();
-        // TODO: upload from model all others fields of user.
+    public User createUser(@RequestParam("user") String userDtoString) throws IOException {
+        User user = new ObjectMapper().readValue(userDtoString,
+                User.class);
         userService.save(user);
-        return "user";
+        return user;
     }
 
     @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.POST)
-    public String updateUser(@PathVariable long id, ModelMap model) {
-        User user = User.builder()
-                .id((int) id)
-                .build();
-        // TODO: upload from model all others fields of user.
-        userService.update(user);
-        return "user";
+    public User updateUser(@PathVariable long id, @RequestParam("user") String userDtoString) throws IOException {
+        User newUser = new ObjectMapper().readValue(userDtoString,
+                User.class);
+        return userService.update(id, newUser);
     }
 
     @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.GET)
-    public String getUser(@PathVariable long id, ModelMap model) {
-        userService.getById(id);
-        return "user";
+    public User getUser(@PathVariable long id) {
+        User user = userService.getById(id);
+        return user;
     }
 
     @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.DELETE)
-    public String deleteUser(@PathVariable long id, ModelMap model) {
+    public boolean deleteUser(@PathVariable long id) {
         userService.delete(id);
-        return "user";
+        return true;
     }
-
 }
 

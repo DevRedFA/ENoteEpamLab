@@ -2,6 +2,7 @@ package com.epam.services.implementations;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
 import com.epam.models.User;
+import com.epam.models.UserRepository;
 import com.epam.services.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    JpaProxyUserRepository jpaProxyUserRepository;
+    UserRepository jpaProxyUserRepository;
 
     public User save(User user) {
         return jpaProxyUserRepository.save(user);
@@ -31,6 +32,19 @@ public class UserServiceImpl implements UserService {
 
     public User getByName(String name) {
         return jpaProxyUserRepository.getByName(name);
+    }
+
+    @Override
+    public User update(long id, User user) {
+        User oldUser = jpaProxyUserRepository.getById(id);
+        oldUser.setName(user.getName());
+        oldUser.setNotebooks(user.getNotebooks());
+        oldUser.setPassword(user.getPassword());
+        oldUser.setNotes(user.getNotes());
+        oldUser.setTags(user.getTags());
+        oldUser.setTags(user.getTags());
+        jpaProxyUserRepository.update(oldUser);
+        return oldUser;
     }
 
     public void update(User user) {
