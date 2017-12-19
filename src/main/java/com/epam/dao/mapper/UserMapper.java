@@ -1,21 +1,52 @@
 package com.epam.dao.mapper;
 
 import com.epam.dao.entity.UserJpaEntity;
+import com.epam.dto.UserDto;
 import com.epam.models.User;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Mapper(componentModel = "spring")
-public interface UserMapper {
+public class UserMapper {
 
-    User userEntityToUser(UserJpaEntity user);
+    private UserMapper() {
+    }
 
-    List<User> userEntitiesToUsers(List<UserJpaEntity> users);
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    UserJpaEntity userToUserEntity(User user);
+    public static User toUser(UserDto userDto) {
+        return modelMapper.map(userDto, User.class);
+    }
 
-    List<UserJpaEntity> usersToUserEntities(List<User> users);
+    public static UserDto toUserDto(User user) {
+        return modelMapper.map(user, UserDto.class);
+    }
+
+    public static User toUser(UserJpaEntity userJpaEntity) {
+        return modelMapper.map(userJpaEntity, User.class);
+    }
+
+    public static UserJpaEntity toUserJpaEntity(User user) {
+
+        modelMapper.getTypeMaps();
+        return modelMapper.map(user, UserJpaEntity.class);
+    }
+
+    public static List<UserJpaEntity> toUserJpaEntities(List<User> users) {
+        List<UserJpaEntity> list = new ArrayList<>();
+        for (User user : users) {
+            list.add(modelMapper.map(user, UserJpaEntity.class));
+        }
+        return list;
+    }
+
+    public static List<User> toUsers(List<UserJpaEntity> users) {
+        List<User> list = new ArrayList<>();
+        for (UserJpaEntity user : users) {
+            list.add(modelMapper.map(user, User.class));
+        }
+        return list;
+    }
 }

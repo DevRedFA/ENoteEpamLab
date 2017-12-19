@@ -151,6 +151,12 @@
             <version>${springfox-swagger.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>LATEST</version>
+        </dependency>
+
         <!--Aspectj-->
         <dependency>
             <groupId>org.aspectj</groupId>

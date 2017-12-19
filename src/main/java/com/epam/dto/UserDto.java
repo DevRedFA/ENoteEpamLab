@@ -1,6 +1,8 @@
 package com.epam.dto;
 
 import java.util.Set;
+
+import com.epam.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,25 +12,13 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor
-@Builder
-@EqualsAndHashCode
 public class UserDto {
 
-  @NonNull
-  private String name;
+    private String name;
 
-  @NonNull
-  private String password;
+    private String password;
 
-  @NonNull
-  private Set<TagDto> tags;
+    private Set<TagDto> tags;
 
-  @NonNull
-  private Set<NotebookDto> notebooks;
-
-  //    private Set<NoteDto> notes;
-
-
+    private Set<NotebookDto> notebooks;
 }

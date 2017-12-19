@@ -1,5 +1,6 @@
 package com.epam.models;
 
+import com.epam.dto.UserDto;
 import lombok.*;
 
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Builder
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@ToString(exclude = {"notes"})
 public class User {
 
     private long id;
@@ -23,5 +25,4 @@ public class User {
     private Set<Notebook> notebooks;
 
     private Set<Note> notes;
-
 }

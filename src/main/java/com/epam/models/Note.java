@@ -11,6 +11,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(exclude = "id")
+@ToString(exclude = {"notebook", "user"})
 public class Note {
 
     private int id;

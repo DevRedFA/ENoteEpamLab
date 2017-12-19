@@ -7,11 +7,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @Data
-@RequiredArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode
 public class TagDto {
 
-  @NonNull
-  private String name;
+    private String name;
 }
