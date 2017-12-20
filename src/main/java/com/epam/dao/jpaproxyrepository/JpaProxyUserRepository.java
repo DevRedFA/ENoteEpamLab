@@ -2,8 +2,8 @@ package com.epam.dao.jpaproxyrepository;
 
 import com.epam.dao.entity.UserJpaEntity;
 import com.epam.dao.jparepository.UserJpaRepository;
-import com.epam.models.User;
-import com.epam.models.UserRepository;
+import com.epam.service.models.User;
+import com.epam.service.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -18,9 +18,6 @@ public class JpaProxyUserRepository implements UserRepository {
 
     @Autowired
     private UserJpaRepository jpaRepository;
-
-//    @Autowired
-//    private UserMapper2 userMapper2;
 
     @Override
     public User save(User newUser) {

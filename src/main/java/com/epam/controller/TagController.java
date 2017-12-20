@@ -1,14 +1,11 @@
 package com.epam.controller;
 
-import com.epam.models.Tag;
-import com.epam.services.interfaces.TagService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.epam.dto.TagDto;
+import com.epam.dto.interfaces.TagDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,46 +13,43 @@ import java.util.List;
 public class TagController {
 
     @Autowired
-    private TagService tagService;
+    private TagDtoService tagDtoService;
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Tag> getAllTagsFromUser(@PathVariable long userId) {
-        return tagService.getByUserId(userId);
+    public List<TagDto> getAllTagsFromUser(@PathVariable long userId) {
+        return tagDtoService.getByUserId(userId);
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public Tag createTag(@PathVariable long userId, @RequestParam("tag") String tagDtoString) throws IOException {
-        Tag tag = new ObjectMapper().readValue(tagDtoString,
-                Tag.class);
-        tagService.save(userId, tag);
-        return tag;
+    public TagDto createTag(@PathVariable long userId, @RequestBody TagDto tagDto) {
+        return tagDtoService.save(userId, tagDto);
     }
 
-    @RequestMapping(value = "/{userId}/{tagId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{userId}/{tagId}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateTag(@PathVariable long tagId, @RequestParam("tag") String tagDtoString) throws IOException {
-        Tag tag = new ObjectMapper().readValue(tagDtoString,
-                Tag.class);
-        tagService.update(tagId, tag);
+    public boolean updateTag(@PathVariable long tagId, @RequestBody TagDto tagDto) {
+        tagDtoService.update(tagId, tagDto);
         return true;
     }
 
-    @RequestMapping(value = "/{userId}/{tagId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{userId}/{tagId}")
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteTag(@PathVariable long tagId) {
-        tagService.delete(tagId);
+        tagDtoService.delete(tagId);
         return true;
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.GET)
-    public List<Tag> getAllTagsFromNotebook(@PathVariable long notebookId) {
-        return tagService.getByNotebookId(notebookId);
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/{userId}/{notebookId}")
+    public List<TagDto> getAllTagsFromNotebook(@PathVariable long notebookId) {
+        return tagDtoService.getByNotebookId(notebookId);
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}/{noteId}", method = RequestMethod.GET)
-    public List<Tag> getAllTagsFromNote(@PathVariable long noteId) {
-        return tagService.getByNoteId(noteId);
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping(value = "/{userId}/{notebookId}/{noteId}")
+    public List<TagDto> getAllTagsFromNote(@PathVariable long noteId) {
+        return tagDtoService.getByNoteId(noteId);
     }
 }

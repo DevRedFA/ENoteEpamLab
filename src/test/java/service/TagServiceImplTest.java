@@ -1,9 +1,9 @@
 package service;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyTagRepository;
-import com.epam.models.Tag;
-import com.epam.services.implementations.TagServiceImpl;
-import com.epam.services.interfaces.TagService;
+import com.epam.service.models.Tag;
+import com.epam.service.implementations.TagServiceImpl;
+import com.epam.service.interfaces.TagService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

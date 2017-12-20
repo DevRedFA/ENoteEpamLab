@@ -1,10 +1,10 @@
-package com.epam.services.implementations;
+package com.epam.service.implementations;
 
-import com.epam.models.*;
-import com.epam.services.interfaces.NoteService;
-import com.epam.services.interfaces.NotebookService;
-import com.epam.services.interfaces.TagService;
-import com.epam.services.interfaces.UserService;
+import com.epam.service.models.*;
+import com.epam.service.interfaces.NoteService;
+import com.epam.service.interfaces.NotebookService;
+import com.epam.service.interfaces.TagService;
+import com.epam.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

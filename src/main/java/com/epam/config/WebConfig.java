@@ -11,7 +11,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.epam.dao", "com.epam.controller", "com.epam.mapper", "com.epam.dao.jparepository", "com.epam.services", "com.epam.config"})
+@ComponentScan({"com.epam.dao", "com.epam.controller", "com.epam.mapper", "com.epam.dao.jparepository", "com.epam.service", "com.epam.config"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     public WebConfig() {
         super();

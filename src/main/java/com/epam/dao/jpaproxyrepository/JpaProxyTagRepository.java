@@ -3,8 +3,8 @@ package com.epam.dao.jpaproxyrepository;
 import com.epam.dao.entity.TagJpaEntity;
 import com.epam.dao.jparepository.TagJpaRepository;
 import com.epam.mapper.TagMapper;
-import com.epam.models.Tag;
-import com.epam.models.TagRepository;
+import com.epam.service.models.Tag;
+import com.epam.service.models.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -19,28 +19,25 @@ public class JpaProxyTagRepository implements TagRepository {
     @Autowired
     private TagJpaRepository jpaRepository;
 
-    @Autowired
-    private TagMapper tagMapper;
-
     @Override
     public Tag save(Tag newTag) {
-        TagJpaEntity savedEntity = jpaRepository.save(tagMapper.tagToTagEntity(newTag));
-        return tagMapper.tagEntityToTag(savedEntity);
+        TagJpaEntity savedEntity = jpaRepository.save(TagMapper.toTagJpaEntity(newTag));
+        return TagMapper.toTag(savedEntity);
     }
 
     @Override
     public void update(Tag tag) {
-        jpaRepository.save(tagMapper.tagToTagEntity(tag));
+        jpaRepository.save(TagMapper.toTagJpaEntity(tag));
     }
 
     @Override
     public List<Tag> all() {
-        return tagMapper.tagEntitiesToTags(jpaRepository.findAll());
+        return TagMapper.toTags(jpaRepository.findAll());
     }
 
     @Override
     public Tag getById(long id) {
-        return tagMapper.tagEntityToTag(jpaRepository.getOne(id));
+        return TagMapper.toTag(jpaRepository.getOne(id));
     }
 
     @Override

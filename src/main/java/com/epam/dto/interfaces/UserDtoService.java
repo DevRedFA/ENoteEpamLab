@@ -1,7 +1,6 @@
-package com.epam.services.interfaces;
+package com.epam.dto.interfaces;
 
 import com.epam.dto.UserDto;
-import com.epam.models.User;
 
 import java.util.List;
 

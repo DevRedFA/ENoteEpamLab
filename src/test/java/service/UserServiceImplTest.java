@@ -1,9 +1,9 @@
 package service;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
-import com.epam.models.User;
-import com.epam.services.implementations.UserServiceImpl;
-import com.epam.services.interfaces.UserService;
+import com.epam.service.models.User;
+import com.epam.service.implementations.UserServiceImpl;
+import com.epam.service.interfaces.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

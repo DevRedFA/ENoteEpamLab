@@ -1,4 +1,4 @@
-package com.epam.models;
+package com.epam.service.models;
 
 
 import lombok.*;
@@ -10,7 +10,7 @@ import java.util.Set;
 @RequiredArgsConstructor
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = "id")
+@EqualsAndHashCode(exclude = {"id", "notebook"})
 @ToString(exclude = {"notebook", "user"})
 public class Note {
 

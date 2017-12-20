@@ -2,7 +2,7 @@ package com.epam.mapper;
 
 import com.epam.dao.entity.UserJpaEntity;
 import com.epam.dto.UserDto;
-import com.epam.models.User;
+import com.epam.service.models.User;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;

@@ -1,9 +1,8 @@
-package com.epam.services.implementations;
+package com.epam.service.implementations;
 
-import com.epam.dao.jpaproxyrepository.JpaProxyUserRepository;
-import com.epam.models.User;
-import com.epam.models.UserRepository;
-import com.epam.services.interfaces.UserService;
+import com.epam.service.models.User;
+import com.epam.service.models.UserRepository;
+import com.epam.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

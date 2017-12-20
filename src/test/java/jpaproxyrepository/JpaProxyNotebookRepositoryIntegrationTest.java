@@ -1,10 +1,10 @@
 package jpaproxyrepository;
 
 import com.epam.config.RootConfig;
-import com.epam.models.Notebook;
-import com.epam.models.NotebookRepository;
-import com.epam.models.User;
-import com.epam.models.UserRepository;
+import com.epam.service.models.Notebook;
+import com.epam.service.models.NotebookRepository;
+import com.epam.service.models.User;
+import com.epam.service.models.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
-@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class JpaProxyNotebookRepositoryIntegrationTest {
 

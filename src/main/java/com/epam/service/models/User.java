@@ -1,6 +1,5 @@
-package com.epam.models;
+package com.epam.service.models;
 
-import com.epam.dto.UserDto;
 import lombok.*;
 
 import java.util.Set;

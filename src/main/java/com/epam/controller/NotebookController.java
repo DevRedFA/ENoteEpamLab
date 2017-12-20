@@ -1,14 +1,11 @@
 package com.epam.controller;
 
-import com.epam.models.Notebook;
-import com.epam.services.interfaces.NotebookService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.epam.dto.NotebookDto;
+import com.epam.dto.interfaces.NotebookDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,47 +13,44 @@ import java.util.List;
 public class NotebookController {
 
     @Autowired
-    private NotebookService notebookService;
+    private NotebookDtoService notebookDtoService;
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Notebook> getAllNotebooksFromUser(@PathVariable long userId) {
-        return notebookService.getByUserId(userId);
+    public List<NotebookDto> getAllNotebookDtosFromUser(@PathVariable long userId) {
+        return notebookDtoService.getByUserId(userId);
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.PUT)
+    @PutMapping(value = "/{userId}")
     @ResponseStatus(HttpStatus.OK)
-    public String createNotebook(@PathVariable long userId, @RequestParam("notebook") String notebookDtoString) throws IOException {
-        Notebook notebook = new ObjectMapper().readValue(notebookDtoString, Notebook.class);
-        notebookService.save(userId, notebook);
-        return "user";
+    public NotebookDto createNotebookDto(@PathVariable long userId, @RequestBody NotebookDto notebookDto) {
+        return notebookDtoService.save(userId, notebookDto);
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{userId}/{notebookId}")
     @ResponseStatus(HttpStatus.OK)
-    public Notebook getNotebook(@PathVariable long notebookId) {
-        return notebookService.getById(notebookId);
+    public NotebookDto getNotebookDto(@PathVariable long notebookId) {
+        return notebookDtoService.getById(notebookId);
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.POST)
+    @PostMapping(value = "/{userId}/{notebookId}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean updateNotebook(@PathVariable long notebookId, @RequestParam("notebook") String notebookDtoString) throws IOException {
-        Notebook notebook = new ObjectMapper().readValue(notebookDtoString, Notebook.class);
-        notebookService.update(notebookId, notebook);
+    public boolean updateNotebookDto(@PathVariable long notebookId, @RequestBody NotebookDto notebookDto) {
+        notebookDtoService.update(notebookId, notebookDto);
         return true;
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{userId}/{notebookId}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean deleteNotebook(@PathVariable long notebookId) {
-        notebookService.delete(notebookId);
+    public boolean deleteNotebookDto(@PathVariable long notebookId) {
+        notebookDtoService.delete(notebookId);
         return true;
     }
 
-    @RequestMapping(value = "/{userId}/{notebookId}/tag/{tagId}", method = RequestMethod.GET)
+    @GetMapping(value = "/{userId}/{notebookId}/tag/{tagId}")
     @ResponseStatus(HttpStatus.OK)
-    public List<Notebook> getAllNotebooksFromUserWithTag(@PathVariable long userId, @PathVariable long tagId) {
-        return notebookService.getByUserIdAndTagId(userId, tagId);
+    public List<NotebookDto> getAllNotebookDtosFromUserWithTag(@PathVariable long userId, @PathVariable long tagId) {
+        return notebookDtoService.getByUserIdAndTagId(userId, tagId);
     }
 
 }

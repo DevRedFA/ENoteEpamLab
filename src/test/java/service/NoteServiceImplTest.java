@@ -1,11 +1,11 @@
 package service;
 
 import com.epam.dao.jpaproxyrepository.JpaProxyNoteRepository;
-import com.epam.models.Note;
-import com.epam.models.Notebook;
-import com.epam.models.User;
-import com.epam.services.implementations.NoteServiceImpl;
-import com.epam.services.interfaces.NoteService;
+import com.epam.service.models.Note;
+import com.epam.service.models.Notebook;
+import com.epam.service.models.User;
+import com.epam.service.implementations.NoteServiceImpl;
+import com.epam.service.interfaces.NoteService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,8 +39,7 @@ public class NoteServiceImplTest {
         List<Note> notes1 = new ArrayList<>();
         notes1.add(note);
         notes1.add(new Note("note1", "text1", user, notebook));
-        List<Note> notes = new ArrayList<>();
-        notes.addAll(notes1);
+        List<Note> notes = new ArrayList<>(notes1);
         notes.add(new Note("note2", "text2", new User(), new Notebook()));
         newNote = new Note("note3", "text3", user, notebook);
 

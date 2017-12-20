@@ -1,16 +1,12 @@
 package com.epam.controller;
 
 import com.epam.dto.UserDto;
-import com.epam.models.User;
-import com.epam.services.interfaces.UserDtoService;
-import com.epam.services.interfaces.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.epam.dto.interfaces.UserDtoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.List;
 
 
 @RestController
@@ -36,6 +32,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDto getUser(@PathVariable long id) {
         return userDtoService.getById(id);
+    }
+
+
+    @GetMapping(value = "/all")
+    @ResponseStatus(HttpStatus.OK)
+    public List<UserDto> getallUsers() {
+        return userDtoService.all();
     }
 
     @DeleteMapping(value = "/{id:[\\d]*}")

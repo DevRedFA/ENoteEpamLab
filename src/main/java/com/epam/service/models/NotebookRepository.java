@@ -1,4 +1,4 @@
-package com.epam.models;
+package com.epam.service.models;
 
 
 import java.util.List;

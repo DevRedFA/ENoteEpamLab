@@ -1,8 +1,8 @@
 package jpaproxyrepository;
 
 import com.epam.config.RootConfig;
-import com.epam.models.Tag;
-import com.epam.models.TagRepository;
+import com.epam.service.models.Tag;
+import com.epam.service.models.TagRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = RootConfig.class)
-@DirtiesContext(classMode = ClassMode.AFTER_CLASS)
+@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 @Transactional
 public class JpaProxyTagRepositoryIntegrationTest {
 

@@ -1,11 +1,10 @@
 package service;
 
-import com.epam.dao.jpaproxyrepository.JpaProxyNotebookRepository;
-import com.epam.models.Notebook;
-import com.epam.models.NotebookRepository;
-import com.epam.models.User;
-import com.epam.services.implementations.NotebookServiceImpl;
-import com.epam.services.interfaces.NotebookService;
+import com.epam.service.models.Notebook;
+import com.epam.service.models.NotebookRepository;
+import com.epam.service.models.User;
+import com.epam.service.implementations.NotebookServiceImpl;
+import com.epam.service.interfaces.NotebookService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

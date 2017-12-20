@@ -1,21 +1,57 @@
 package com.epam.mapper;
 
 import com.epam.dao.entity.NotebookJpaEntity;
-import com.epam.models.Notebook;
-import org.mapstruct.Mapper;
-import org.springframework.stereotype.Component;
+import com.epam.dto.NotebookDto;
+import com.epam.service.models.Notebook;
+import org.modelmapper.ModelMapper;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Component
-@Mapper(componentModel = "spring")
-public interface NotebookMapper {
+public class NotebookMapper {
 
-    Notebook notebookEntityToNotebook(NotebookJpaEntity notebook);
+    private static ModelMapper modelMapper = new ModelMapper();
 
-    List<Notebook> notebookEntitiesToNotebooks(List<NotebookJpaEntity> notebooks);
+    private NotebookMapper() {
+    }
 
-    NotebookJpaEntity notebookToNotebookEntity(Notebook notebook);
+    public static Notebook toNotebook(NotebookDto notebookDto) {
+        return modelMapper.map(notebookDto, Notebook.class);
+    }
 
-    List<NotebookJpaEntity> notebooksToNotebookEntities(List<Notebook> notebooks);
+    public static NotebookDto toNotebookDto(Notebook notebook) {
+        return modelMapper.map(notebook, NotebookDto.class);
+    }
+
+    public static Notebook toNotebook(NotebookJpaEntity notebookJpaEntity) {
+        return modelMapper.map(notebookJpaEntity, Notebook.class);
+    }
+
+    public static NotebookJpaEntity toNotebookJpaEntity(Notebook notebook) {
+        return modelMapper.map(notebook, NotebookJpaEntity.class);
+    }
+
+    public static List<NotebookJpaEntity> toNotebookJpaEntities(List<Notebook> notebooks) {
+        List<NotebookJpaEntity> list = new ArrayList<>();
+        for (Notebook notebook : notebooks) {
+            list.add(modelMapper.map(notebook, NotebookJpaEntity.class));
+        }
+        return list;
+    }
+
+    public static List<Notebook> toNotebooks(List<NotebookJpaEntity> notebooks) {
+        List<Notebook> list = new ArrayList<>();
+        for (NotebookJpaEntity notebook : notebooks) {
+            list.add(modelMapper.map(notebook, Notebook.class));
+        }
+        return list;
+    }
+
+    public static List<NotebookDto> toNotebookDtos(List<Notebook> notebooks) {
+        List<NotebookDto> list = new ArrayList<>();
+        for (Notebook notebook : notebooks) {
+            list.add(modelMapper.map(notebook, NotebookDto.class));
+        }
+        return list;
+    }
 }
