@@ -1,4 +1,4 @@
-package com.epam.dao.mapper;
+package com.epam.mapper;
 
 import com.epam.dao.entity.NotebookJpaEntity;
 import com.epam.models.Notebook;

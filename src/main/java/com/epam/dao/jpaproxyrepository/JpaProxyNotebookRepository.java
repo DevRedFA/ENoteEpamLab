@@ -2,7 +2,7 @@ package com.epam.dao.jpaproxyrepository;
 
 import com.epam.dao.entity.NotebookJpaEntity;
 import com.epam.dao.jparepository.NotebookJpaRepository;
-import com.epam.dao.mapper.NotebookMapper;
+import com.epam.mapper.NotebookMapper;
 import com.epam.models.Notebook;
 import com.epam.models.NotebookRepository;
 import org.springframework.beans.factory.annotation.Autowired;

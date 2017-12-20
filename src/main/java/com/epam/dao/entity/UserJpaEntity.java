@@ -8,13 +8,14 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @RequiredArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(exclude = "id")
 @Table(name = "users", schema = "public")
 public class UserJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",
             nullable = false)
     private long id;

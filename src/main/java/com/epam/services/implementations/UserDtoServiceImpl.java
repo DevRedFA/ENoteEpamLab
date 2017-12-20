@@ -1,6 +1,6 @@
 package com.epam.services.implementations;
 
-import com.epam.dao.mapper.UserMapper;
+import com.epam.mapper.UserMapper;
 import com.epam.dto.UserDto;
 import com.epam.models.*;
 import com.epam.services.interfaces.UserDtoService;

@@ -2,14 +2,13 @@ package com.epam.dao.jpaproxyrepository;
 
 import com.epam.dao.entity.UserJpaEntity;
 import com.epam.dao.jparepository.UserJpaRepository;
-import com.epam.dao.mapper.UserMapper2;
 import com.epam.models.User;
 import com.epam.models.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import com.epam.dao.mapper.UserMapper;
+import com.epam.mapper.UserMapper;
 
 import java.util.List;
 

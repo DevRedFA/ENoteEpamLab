@@ -4,6 +4,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
+import static org.junit.Assert.assertTrue;
 
 
 import java.util.Collections;
@@ -34,6 +35,7 @@ import org.springframework.transaction.annotation.Transactional;
 @WebAppConfiguration
 @ContextConfiguration(classes = {RootConfig.class})
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@Transactional
 public class UserJpaRepositoryIntegrationTest {
 
     @Autowired
@@ -56,7 +58,7 @@ public class UserJpaRepositoryIntegrationTest {
         List<UserJpaEntity> users = userJpaRepository.findAll();
 
         List<UserJpaEntity> usersCarters = userJpaRepository.findAllByName("Carter");
-        assertThat(users.size(), is(2));
+        assertThat(users.size(), is(6));
         assertThat(users, hasItem(dave));
         assertThat(usersCarters.size(), is(1));
         assertThat(usersCarters, hasItem(carter));
@@ -65,10 +67,10 @@ public class UserJpaRepositoryIntegrationTest {
 
     @Test
     public void update_test() {
-        UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
+        UserJpaEntity dave = new UserJpaEntity(0, "Dave", "Mathews", Collections.emptySet(), Collections.emptySet(), Collections.emptySet());
         dave = userJpaRepository.save(dave);
         List<UserJpaEntity> users = userJpaRepository.findAll();
-        assertThat(users, contains(dave));
+        assertThat(users, hasItem(dave));
         dave.setName("Dave The Second");
         userJpaRepository.save(dave);
         users = userJpaRepository.findAll();
@@ -76,7 +78,6 @@ public class UserJpaRepositoryIntegrationTest {
     }
 
     @Test
-    @Transactional
     public void create_with_tag_and_notebook_and_note_test() {
         UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
         Set<TagJpaEntity> tags = new HashSet<TagJpaEntity>();
@@ -91,19 +92,19 @@ public class UserJpaRepositoryIntegrationTest {
 
         NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
         note.setTags(tags);
-        notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
-        dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+        notebook.setNotes(new HashSet<>(Collections.singleton(note)));
+        dave.setNotes(new HashSet<>(Collections.singleton(note)));
         dave = userJpaRepository.save(dave);
         List<UserJpaEntity> users = userJpaRepository.findAll();
-        assertThat(users, contains(dave));
+        assertThat(users, hasItem(dave));
         dave.setName("Dave The Second");
         userJpaRepository.save(dave);
         users = userJpaRepository.findAll();
         assertThat(users, hasItem(dave));
-        assertThat(users.get(0)
+        assertThat(users.get(users.indexOf(dave))
                 .getTags()
                 .size(), is(1));
-        assertThat(users.get(0)
+        assertThat(users.get(users.indexOf(dave))
                 .getNotebooks()
                 .size(), is(1));
 

@@ -1,10 +1,9 @@
-package com.epam.dao.mapper;
+package com.epam.mapper;
 
 import com.epam.dao.entity.UserJpaEntity;
 import com.epam.dto.UserDto;
 import com.epam.models.User;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
 
 import java.util.ArrayList;
 import java.util.List;

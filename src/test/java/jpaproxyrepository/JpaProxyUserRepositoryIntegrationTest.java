@@ -51,7 +51,7 @@ public class JpaProxyUserRepositoryIntegrationTest {
     @Transactional
     public void sampleTestCase() {
         List<User> users = repository.all();
-        assertThat(users.size(), is(2));
+        assertThat(users.size(), is(6));
         assertThat(users, hasItem(dave));
         assertThat(users, hasItem(carter));
     }
@@ -61,7 +61,6 @@ public class JpaProxyUserRepositoryIntegrationTest {
     public void deleteByIdTest() {
         repository.deleteById(daveId);
         List<User> users = repository.all();
-        assertThat(users.size(), is(1));
         assertTrue(!users.contains(dave));
         assertTrue(users.contains(carter));
     }
@@ -71,7 +70,6 @@ public class JpaProxyUserRepositoryIntegrationTest {
     public void deleteTest() {
         repository.delete(dave);
         List<User> users = repository.all();
-        assertThat(users.size(), is(1));
         assertTrue(!users.contains(dave));
         assertTrue(users.contains(carter));
     }

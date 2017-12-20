@@ -1,11 +1,11 @@
 CREATE TABLE users (
-  id       INTEGER PRIMARY KEY,
+  id       INTEGER PRIMARY KEY auto_increment,
   name     VARCHAR,
   password VARCHAR
 );
 
 CREATE TABLE tags (
-  id   INTEGER PRIMARY KEY,
+  id   INTEGER PRIMARY KEY auto_increment,
   name VARCHAR
 );
 
@@ -15,7 +15,7 @@ CREATE TABLE users_tags (
 );
 
 CREATE TABLE notes (
-  id           INTEGER PRIMARY KEY,
+  id           INTEGER PRIMARY KEY auto_increment,
   name         VARCHAR,
   text         TEXT,
   notebook_id  INTEGER,
@@ -30,7 +30,7 @@ CREATE TABLE notes_tags (
 );
 
 CREATE TABLE notebooks (
-  id      INTEGER PRIMARY KEY,
+  id      INTEGER PRIMARY KEY auto_increment,
   name    VARCHAR,
   user_id INTEGER
 );
@@ -54,4 +54,7 @@ ALTER TABLE notes
 ALTER TABLE notes
   ADD CONSTRAINT "notes_fk1" FOREIGN KEY (user_id) REFERENCES users (id);
 
-INSERT INTO users VALUES (1, 'Ivan', 'Password');
+INSERT INTO users VALUES (0, 'Ivan0', 'Password');
+INSERT INTO users VALUES (1, 'Ivan1', 'Password');
+INSERT INTO users VALUES (2, 'Ivan2', 'Password');
+INSERT INTO users VALUES (3, 'Ivan3', 'Password');

@@ -20,25 +20,25 @@ public class UserController {
     @Autowired
     private UserDtoService userDtoService;
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
     @ResponseStatus(HttpStatus.OK)
     public UserDto createUser(@RequestBody UserDto userDto) {
         return userDtoService.save(userDto);
     }
 
-    @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.POST)
+    @PostMapping(value = "/{id:[\\d]*}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto updateUser(@PathVariable long id, @RequestBody UserDto userDto) {
         return userDtoService.update(id, userDto);
     }
 
-    @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id:[\\d]*}")
     @ResponseStatus(HttpStatus.OK)
     public UserDto getUser(@PathVariable long id) {
         return userDtoService.getById(id);
     }
 
-    @RequestMapping(value = "/{id:[\\d]*}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/{id:[\\d]*}")
     @ResponseStatus(HttpStatus.OK)
     public boolean deleteUser(@PathVariable long id) {
         return userDtoService.delete(id);

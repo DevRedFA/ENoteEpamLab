@@ -109,6 +109,6 @@ public class TagJpaRepositoryIntegrationTest {
         List<NoteJpaEntity> notesAll = noteJpaRepository.findAll();
         assertThat(notesAll.size(), is(1));
         List<UserJpaEntity> users = userJpaRepository.findAll();
-        assertThat(users.size(), is(1));
+        assertThat(users.size(), is(5));
     }
 }

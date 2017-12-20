@@ -7,14 +7,14 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(exclude = "id")
 @NoArgsConstructor
 @RequiredArgsConstructor
 @Table(name = "tags", schema = "public")
 public class TagJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",
             nullable = false)
     private long id;

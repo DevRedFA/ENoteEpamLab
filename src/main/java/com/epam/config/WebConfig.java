@@ -6,13 +6,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"com.epam.dao", "com.epam.controller", "com.epam.dao.mapper", "com.epam.dao.jparepository", "com.epam.services", "com.epam.config"})
+@ComponentScan({"com.epam.dao", "com.epam.controller", "com.epam.mapper", "com.epam.dao.jparepository", "com.epam.services", "com.epam.config"})
 public class WebConfig extends WebMvcConfigurerAdapter {
     public WebConfig() {
         super();

@@ -2,7 +2,7 @@ package com.epam.dao.jpaproxyrepository;
 
 import com.epam.dao.entity.NoteJpaEntity;
 import com.epam.dao.jparepository.NoteJpaRepository;
-import com.epam.dao.mapper.NoteMapper;
+import com.epam.mapper.NoteMapper;
 import com.epam.models.Note;
 import com.epam.models.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;

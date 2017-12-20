@@ -20,7 +20,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories("com.epam.dao")
-@ComponentScan({"com.epam.dao", "com.epam.dao.mapper", "com.epam.controller", "com.epam.dao.jparepository", "com.epam.services", "com.epam.config"})
+@ComponentScan({"com.epam.dao", "com.epam.mapper", "com.epam.controller", "com.epam.dao.jparepository", "com.epam.services", "com.epam.config"})
 public class RootConfig extends WebMvcConfigurerAdapter {
     public RootConfig() {
     }

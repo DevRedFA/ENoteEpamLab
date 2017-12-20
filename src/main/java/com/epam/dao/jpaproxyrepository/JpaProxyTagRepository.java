@@ -2,7 +2,7 @@ package com.epam.dao.jpaproxyrepository;
 
 import com.epam.dao.entity.TagJpaEntity;
 import com.epam.dao.jparepository.TagJpaRepository;
-import com.epam.dao.mapper.TagMapper;
+import com.epam.mapper.TagMapper;
 import com.epam.models.Tag;
 import com.epam.models.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;

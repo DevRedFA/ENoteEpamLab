@@ -11,12 +11,12 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @ToString(exclude = {"user", "notebook"})
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(exclude = {"id", "user", "notebook"})
 @Table(name = "notes", schema = "public")
 public class NoteJpaEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id",
             nullable = false)
     private long id;
