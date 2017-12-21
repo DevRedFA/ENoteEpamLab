@@ -1,7 +1,6 @@
 package jparepository;
 
 import com.epam.config.RootConfig;
-import com.epam.config.RootConfig;
 import com.epam.dao.entity.NoteJpaEntity;
 import com.epam.dao.entity.NotebookJpaEntity;
 import com.epam.dao.entity.TagJpaEntity;
@@ -25,7 +24,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
@@ -103,14 +101,11 @@ public class NotebookJpaRepositoryIntegrationTest {
         dave = userJpaRepository.save(dave);
         notebook = notebookJpaRepository.save(notebook);
         List<NotebookJpaEntity> notebooksList = notebookJpaRepository.findAll();
-        assertThat(notebooksList, contains(notebook));
-        assertThat(notebooksList.get(0)
-                .getNotes()
-                .size(), is(1));
-        assertThat(notebooksList.get(0)
+        assertThat(notebooksList, hasItem(notebook));
+        assertThat(notebooksList.get(notebooksList.indexOf(notebook))
                 .getUser()
                 .getId(), is(dave.getId()));
-        assertThat(notebooksList.get(0)
+        assertThat(notebooksList.get(notebooksList.indexOf(notebook))
                 .getName(), is(notebook.getName()));
 
         List<TagJpaEntity> tagsAll = tagJpaRepository.findAll();
