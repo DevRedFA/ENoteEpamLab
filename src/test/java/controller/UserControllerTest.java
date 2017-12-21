@@ -49,7 +49,7 @@ public class UserControllerTest {
                 .andReturn();
         String contentAsString = mvcResult.getResponse()
                 .getContentAsString();
-        String result = "{\"name\":\"Ivan1\",\"password\":\"Password\",\"tags\":[],\"notebooks\":[]}";
+        String result = "{\"name\":\"Ivan1\",\"password\":\"Password\",\"tags\":[],\"notebooks\":[{\"name\":\"notebook 2\",\"notes\":[]}]}";
         assertEquals(result, contentAsString);
     }
 

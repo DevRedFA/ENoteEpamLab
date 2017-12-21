@@ -15,25 +15,25 @@ import java.util.Set;
 @Table(name = "notebooks", schema = "public")
 public class NotebookJpaEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id",
-            nullable = false)
-    private long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id",
+      nullable = false)
+  private long id;
 
-    @NonNull
-    @Column(name = "name",
-            nullable = false,
-            length = -1)
-    private String name;
+  @NonNull
+  @Column(name = "name",
+      nullable = false,
+      length = -1)
+  private String name;
 
-    @NonNull
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id",
-            referencedColumnName = "id",
-            nullable = false)
-    private UserJpaEntity user;
+  @NonNull
+  @ManyToOne(fetch = FetchType.EAGER)
+  @JoinColumn(name = "user_id",
+      referencedColumnName = "id",
+      nullable = false)
+  private UserJpaEntity user;
 
-    @OneToMany(mappedBy = "notebook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<NoteJpaEntity> notes;
+  @OneToMany(mappedBy = "notebook", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  private Set<NoteJpaEntity> notes;
 }

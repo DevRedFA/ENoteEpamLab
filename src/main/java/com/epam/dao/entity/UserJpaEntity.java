@@ -46,9 +46,9 @@ public class UserJpaEntity {
                     nullable = false))
     private Set<TagJpaEntity> tags;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<NotebookJpaEntity> notebooks;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private Set<NoteJpaEntity> notes;
 }
