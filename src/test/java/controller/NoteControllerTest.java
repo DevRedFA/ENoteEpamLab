@@ -50,7 +50,7 @@ public class NoteControllerTest {
                              .andReturn();
     String contentAsString = mvcResult.getResponse()
                                       .getContentAsString();
-    String result = "[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 1\",\"text\":\"text 1\",\"tags\":[],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
+    String result = "[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 1\",\"text\":\"text 1\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 6\",\"text\":\"text 6\",\"tags\":[],\"created\":\"2017-11-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 7\",\"text\":\"text 7\",\"tags\":[],\"created\":\"2017-10-12\",\"updated\":\"2017-11-12\"}]";
     assertEquals(result, contentAsString);
   }
 
@@ -61,7 +61,7 @@ public class NoteControllerTest {
                              .andReturn();
     String contentAsString = mvcResult.getResponse()
                                       .getContentAsString();
-    String result = "[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
+    String result = "[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 1\",\"text\":\"text 1\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
     assertEquals(result, contentAsString);
   }
 
@@ -72,7 +72,7 @@ public class NoteControllerTest {
                              .andReturn();
     String contentAsString = mvcResult.getResponse()
                                       .getContentAsString();
-    String result = "[{\"name\":\"note 1\",\"text\":\"text 1\",\"tags\":[],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
+    String result = ":[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 6\",\"text\":\"text 6\",\"tags\":[],\"created\":\"2017-11-12\",\"updated\":\"2017-12-12\"}]";
     assertEquals(result, contentAsString);
   }
 
