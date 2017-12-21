@@ -1,9 +1,9 @@
 package com.epam.service.implementations;
 
-import com.epam.service.models.*;
 import com.epam.service.interfaces.NotebookService;
 import com.epam.service.interfaces.TagService;
 import com.epam.service.interfaces.UserService;
+import com.epam.service.models.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -33,6 +33,7 @@ public class NotebookServiceImpl implements NotebookService {
     public Notebook save(long userId, Notebook notebook) {
         User user = userService.getById(userId);
         user.getNotebooks().add(notebook);
+        notebook.setUser(user);
         userService.update(user);
         //TODO: something strange, need to think
         Notebook resultNotebook = null;
