@@ -72,7 +72,7 @@ public class NoteControllerTest {
                              .andReturn();
     String contentAsString = mvcResult.getResponse()
                                       .getContentAsString();
-    String result = "[{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
+    String result = "[{\"name\":\"note 1\",\"text\":\"text 1\",\"tags\":[],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 0\",\"text\":\"text 0\",\"tags\":[{\"name\":\"tag0\"}],\"created\":\"2017-12-12\",\"updated\":\"2017-12-12\"}]";
     assertEquals(result, contentAsString);
   }
 
@@ -111,7 +111,7 @@ public class NoteControllerTest {
   @Test
   public void testPost() throws Exception {
     String newNote = "{\"name\":\"Note 1\",\"text\":\"Text 1\",\"tags\":[],\"created\":\"2017-12-21\",\"updated\":\"2017-12-21\"}";
-    mvc.perform(post("/noteDtos/0/0/0")
+    mvc.perform(post("/notes/0/0/0")
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(newNote))
        .andExpect(status().isOk());

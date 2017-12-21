@@ -1,5 +1,6 @@
 package com.epam.service.implementations;
 
+import com.epam.service.interfaces.UserService;
 import com.epam.service.models.Note;
 import com.epam.service.models.NoteRepository;
 import com.epam.service.models.Notebook;
@@ -7,6 +8,7 @@ import com.epam.service.models.Tag;
 import com.epam.service.interfaces.NoteService;
 import com.epam.service.interfaces.NotebookService;
 import com.epam.service.interfaces.TagService;
+import com.epam.service.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -28,6 +30,10 @@ public class NoteServiceImpl implements NoteService {
 
   @Autowired
   private NotebookService notebookService;
+
+
+  @Autowired
+  private UserService userService;
 
   public Note save(Note note) {
     return jpaProxyNoteRepository.save(note);
@@ -72,7 +78,6 @@ public class NoteServiceImpl implements NoteService {
   public void update(long noteId, Note note) {
     Note oldNote = this.getById(noteId);
     //TODO: check fields for null
-    oldNote.setCreated(note.getCreated());
     oldNote.setName(note.getName());
     oldNote.setTags(note.getTags());
     oldNote.setUpdated(note.getUpdated());
