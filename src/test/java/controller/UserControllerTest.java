@@ -49,7 +49,7 @@ public class UserControllerTest {
                 .andReturn();
         String contentAsString = mvcResult.getResponse()
                 .getContentAsString();
-        String result = "{\"name\":\"Ivan1\",\"password\":\"Password\",\"tags\":[],\"notebooks\":[{\"name\":\"notebook 2\",\"notes\":[]},{\"name\":\"Notebook 1\",\"notes\":[]}]}";
+        String result = "{\"name\":\"Ivan1\",\"password\":\"Password\",\"tags\":[{\"name\":\"tag1\"},{\"name\":\"tag2\"}],\"notebooks\":[{\"name\":\"notebook 1\",\"notes\":[{\"name\":\"note 2\",\"text\":\"text 2\",\"tags\":[],\"created\":\"2017-11-12\",\"updated\":\"2017-12-12\"},{\"name\":\"note 8\",\"text\":\"text 8\",\"tags\":[],\"created\":\"2017-11-12\",\"updated\":\"2017-12-12\"}]},{\"name\":\"notebook 2\",\"notes\":[{\"name\":\"note 9\",\"text\":\"text 9\",\"tags\":[],\"created\":\"2017-10-12\",\"updated\":\"2017-11-12\"},{\"name\":\"note 3\",\"text\":\"text 3\",\"tags\":[],\"created\":\"2017-10-12\",\"updated\":\"2017-11-12\"}]}]}";
         assertEquals(result, contentAsString);
     }
 
