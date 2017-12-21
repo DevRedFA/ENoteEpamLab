@@ -28,52 +28,52 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 public class JpaProxyTagRepositoryIntegrationTest {
 
-    @Autowired
-    private TagRepository repository;
+  @Autowired
+  private TagRepository repository;
 
-    private long workId;
-    private Tag work;
-    private Tag study;
+  private long workId;
+  private Tag work;
+  private Tag study;
 
-    @Before
-    public void init() {
-        work = new Tag("work");
-        work = repository.save(work);
-        workId = work.getId();
+  @Before
+  public void init() {
+    work = new Tag("work");
+    work = repository.save(work);
+    workId = work.getId();
 
-        study = new Tag("study");
-        study = repository.save(study);
-    }
+    study = new Tag("study");
+    study = repository.save(study);
+  }
 
-    @Test
-    public void getAllTest() {
-        List<Tag> tags = repository.all();
-        assertThat(tags.size(), is(2));
-        assertThat(tags, hasItem(work));
-        assertThat(tags, hasItem(study));
-    }
+  @Test
+  public void getAllTest() {
+    List<Tag> tags = repository.all();
+    assertThat(tags, hasItem(work));
+    assertThat(tags, hasItem(study));
+  }
 
-    @Test
-    public void getByIdTest() {
-        Tag tag = repository.getById(workId);
-        assertThat(tag, is(work));
-        assertThat(tag.getName(), is("work"));
-    }
+  @Test
+  public void getByIdTest() {
+    Tag tag = repository.getById(workId);
+    assertThat(tag, is(work));
+    assertThat(tag.getName(), is("work"));
+  }
 
-    @Test
-    public void updateTest() {
-        work.setName("new work");
-        repository.update(work);
-        Tag tag = repository.getById(workId);
-        assertThat(tag, is(work));
-        assertThat(tag.getName(), is("new work"));
-    }
-    @Test
-    public void deleteTest() {
-        repository.delete(workId);
-        List<Tag> tags = repository.all();
-        assertTrue(!tags.contains(work));
-    }
+  @Test
+  public void updateTest() {
+    work.setName("new work");
+    repository.update(work);
+    Tag tag = repository.getById(workId);
+    assertThat(tag, is(work));
+    assertThat(tag.getName(), is("new work"));
+  }
+
+  @Test
+  public void deleteTest() {
+    repository.delete(workId);
+    List<Tag> tags = repository.all();
+    assertTrue(!tags.contains(work));
+  }
 
 
 }
