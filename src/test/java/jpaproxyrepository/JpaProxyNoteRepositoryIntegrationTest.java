@@ -28,69 +28,68 @@ import static org.junit.Assert.assertTrue;
 @Transactional
 public class JpaProxyNoteRepositoryIntegrationTest {
 
-    @Autowired
-    private NotebookRepository notebookRepository;
+  @Autowired
+  private NotebookRepository notebookRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    @Autowired
-    private NoteRepository noteRepository;
+  @Autowired
+  private NoteRepository noteRepository;
 
 
-    private Note note;
-    private long noteId;
-    private long daveId;
+  private Note note;
+  private long noteId;
+  private long daveId;
 
-    @Before
-    public void init() {
-        User dave = new User("Dave", "Mathews");
-        dave = userRepository.save(dave);
-        daveId = dave.getId();
+  @Before
+  public void init() {
+    User dave = new User("Dave", "Mathews");
+    dave = userRepository.save(dave);
+    daveId = dave.getId();
 
-        Notebook spring = new Notebook("Spring courses Epam", dave);
-        spring = notebookRepository.save(spring);
+    Notebook spring = new Notebook("Spring courses Epam", dave);
+    spring = notebookRepository.save(spring);
 
-        note = new Note("note_name", "note", dave, spring);
-        note = noteRepository.save(note);
-        noteId = note.getId();
-    }
+    note = new Note("note_name", "note", dave, spring);
+    note = noteRepository.save(note);
+    noteId = note.getId();
+  }
 
-    @Test
-    public void getAllTest() {
-        List<Note> notes = noteRepository.all();
-        assertThat(notes, hasItem(note));
-        assertThat(notes.size(), is(1));
-    }
+  @Test
+  public void getAllTest() {
+    List<Note> notes = noteRepository.all();
+    assertThat(notes, hasItem(note));
+    assertThat(notes.size(), is(1));
+  }
 
-    @Test
-    @Ignore
-    public void getByIdTest() {
-        Note testNote = noteRepository.getById(noteId);
-        assertThat(testNote, is(note));
-    }
+  @Test
+  public void getByIdTest() {
+    Note testNote = noteRepository.getById(noteId);
+    assertThat(testNote, is(note));
+  }
 
-    @Test
-    public void getByUserIdTest() {
-        List<Note> notes = noteRepository.getByUserId(daveId);
-        assertThat(notes, hasItem(note));
-        assertThat(notes.size(), is(1));
-    }
+  @Test
+  public void getByUserIdTest() {
+    List<Note> notes = noteRepository.getByUserId(daveId);
+    assertThat(notes, hasItem(note));
+    assertThat(notes.size(), is(1));
+  }
 
-    @Test
-    public void updateTest() {
-        note.setName("new note");
-        noteRepository.update(note);
-        Note testNote = noteRepository.getById(noteId);
-        assertThat(testNote, is(note));
-        assertThat(testNote.getName(), is("new note"));
-    }
+  @Test
+  public void updateTest() {
+    note.setName("new note");
+    noteRepository.update(note);
+    Note testNote = noteRepository.getById(noteId);
+    assertThat(testNote, is(note));
+    assertThat(testNote.getName(), is("new note"));
+  }
 
-    @Test
-    public void deleteTest() {
-        noteRepository.delete(noteId);
-        List<Note> notes = noteRepository.getByUserId(daveId);
-        assertTrue(notes.isEmpty());
-    }
+  @Test
+  public void deleteTest() {
+    noteRepository.delete(noteId);
+    List<Note> notes = noteRepository.getByUserId(daveId);
+    assertTrue(notes.isEmpty());
+  }
 
 }

@@ -36,79 +36,77 @@ import static org.junit.Assert.assertThat;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class TagJpaRepositoryIntegrationTest {
 
-    @Autowired
-    private UserJpaRepository userJpaRepository;
+  @Autowired
+  private UserJpaRepository userJpaRepository;
 
-    @Autowired
-    private TagJpaRepository tagJpaRepository;
+  @Autowired
+  private TagJpaRepository tagJpaRepository;
 
-    @Autowired
-    private NotebookJpaRepository notebookJpaRepository;
+  @Autowired
+  private NotebookJpaRepository notebookJpaRepository;
 
-    @Autowired
-    private NoteJpaRepository noteJpaRepository;
+  @Autowired
+  private NoteJpaRepository noteJpaRepository;
 
 
-    @Test
-    public void save_test() {
-        TagJpaEntity work = new TagJpaEntity("Work");
-        work = tagJpaRepository.save(work);
+  @Test
+  public void save_test() {
+    TagJpaEntity work = new TagJpaEntity("Work");
+    work = tagJpaRepository.save(work);
 
-        TagJpaEntity home = new TagJpaEntity("Home");
-        home = tagJpaRepository.save(home);
+    TagJpaEntity home = new TagJpaEntity("Home");
+    home = tagJpaRepository.save(home);
 
-        List<TagJpaEntity> tags = tagJpaRepository.findAll();
-        assertThat(tags.size(), is(2));
-        assertThat(tags, hasItem(home));
-        assertThat(tags, hasItem(work));
-    }
+    List<TagJpaEntity> tags = tagJpaRepository.findAll();
+    assertThat(tags, hasItem(home));
+    assertThat(tags, hasItem(work));
+  }
 
-    @Test
-    public void update_test() {
-        TagJpaEntity work = new TagJpaEntity("Work");
-        work = tagJpaRepository.save(work);
-        List<TagJpaEntity> users = tagJpaRepository.findAll();
-        assertThat(users, hasItem(work));
-        work.setName("Second Tag");
-        tagJpaRepository.save(work);
-        users = tagJpaRepository.findAll();
-        assertThat(users, hasItem(work));
-    }
+  @Test
+  public void update_test() {
+    TagJpaEntity work = new TagJpaEntity("Work");
+    work = tagJpaRepository.save(work);
+    List<TagJpaEntity> users = tagJpaRepository.findAll();
+    assertThat(users, hasItem(work));
+    work.setName("Second Tag");
+    tagJpaRepository.save(work);
+    users = tagJpaRepository.findAll();
+    assertThat(users, hasItem(work));
+  }
 
-    @Test
-    @Transactional
-    public void createWithNoteAndTagAndUser() {
-        UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
-        Set<TagJpaEntity> tags = new HashSet<>();
-        TagJpaEntity work = new TagJpaEntity("Work");
-        tags.add(work);
-        dave.setTags(tags);
+  @Test
+  @Transactional
+  public void createWithNoteAndTagAndUser() {
+    UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
+    Set<TagJpaEntity> tags = new HashSet<>();
+    TagJpaEntity work = new TagJpaEntity("Work");
+    tags.add(work);
+    dave.setTags(tags);
 
-        Set<NotebookJpaEntity> notebooks = new HashSet<NotebookJpaEntity>();
-        NotebookJpaEntity notebook = new NotebookJpaEntity("First Notebook", dave);
-        notebooks.add(notebook);
-        dave.setNotebooks(notebooks);
+    Set<NotebookJpaEntity> notebooks = new HashSet<NotebookJpaEntity>();
+    NotebookJpaEntity notebook = new NotebookJpaEntity("First Notebook", dave);
+    notebooks.add(notebook);
+    dave.setNotebooks(notebooks);
 
-        NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
-        note.setTags(tags);
-        notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
-        dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+    NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
+    note.setTags(tags);
+    notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+    dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
 
-        userJpaRepository.save(dave);
+    userJpaRepository.save(dave);
 
-        work = tagJpaRepository.save(work);
-        List<TagJpaEntity> tagsList = tagJpaRepository.findAll();
-        assertThat(tagsList, contains(work));
-        assertThat(tagsList.size(), is(1));
-        assertThat(tagsList.get(0)
-                .getId(), is(work.getId()));
-        assertThat(tagsList.get(0)
-                .getName(), is("Work"));
-        assertThat(tagsList.get(0), is(work));
+    work = tagJpaRepository.save(work);
+    List<TagJpaEntity> tagsList = tagJpaRepository.findAll();
+    assertThat(tagsList, hasItem(work));
+    assertThat(tagsList.get(tagsList.indexOf(work))
+                       .getId(), is(work.getId()));
+    assertThat(tagsList.get(tagsList.indexOf(work))
+                       .getName(), is("Work"));
+    assertThat(tagsList.get(tagsList.indexOf(work)), is(work));
 
-        List<NoteJpaEntity> notesAll = noteJpaRepository.findAll();
-        assertThat(notesAll.size(), is(1));
-        List<UserJpaEntity> users = userJpaRepository.findAll();
-        assertThat(users.size(), is(5));
-    }
+    List<NoteJpaEntity> notesAll = noteJpaRepository.findAll();
+    assertThat(notesAll, hasItem(note));
+    List<UserJpaEntity> users = userJpaRepository.findAll();
+    assertThat(users, hasItem(dave));
+  }
 }
