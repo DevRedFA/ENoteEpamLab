@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -35,57 +36,58 @@ import static org.junit.Assert.assertThat;
 @DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
 public class NoteJpaRepositoryIntegrationTest {
 
-    @Autowired
-    private UserJpaRepository userJpaRepository;
+  @Autowired
+  private UserJpaRepository userJpaRepository;
 
-    @Autowired
-    private TagJpaRepository tagJpaRepository;
+  @Autowired
+  private TagJpaRepository tagJpaRepository;
 
-    @Autowired
-    private NoteJpaRepository noteJpaRepository;
+  @Autowired
+  private NoteJpaRepository noteJpaRepository;
 
-    @Autowired
-    private NotebookJpaRepository notebookJpaRepository;
+  @Autowired
+  private NotebookJpaRepository notebookJpaRepository;
 
 
+  @Test
+  @Transactional
+  public void create_with_tag_and_notebook_and_user_test() {
+    UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
+    Set<TagJpaEntity> tags = new HashSet<TagJpaEntity>();
+    TagJpaEntity work = new TagJpaEntity("Work");
+    tags.add(work);
+    dave.setTags(tags);
 
-    @Test
-    @Transactional
-    public void create_with_tag_and_notebook_and_user_test() {
-        UserJpaEntity dave = new UserJpaEntity("Dave", "Mathews");
-        Set<TagJpaEntity> tags = new HashSet<TagJpaEntity>();
-        TagJpaEntity work = new TagJpaEntity("Work");
-        tags.add(work);
-        dave.setTags(tags);
+    Set<NotebookJpaEntity> notebooks = new HashSet<NotebookJpaEntity>();
+    NotebookJpaEntity notebook = new NotebookJpaEntity("First Notebook", dave);
+    notebooks.add(notebook);
+    dave.setNotebooks(notebooks);
+    dave = userJpaRepository.save(dave);
 
-        Set<NotebookJpaEntity> notebooks = new HashSet<NotebookJpaEntity>();
-        NotebookJpaEntity notebook = new NotebookJpaEntity("First Notebook", dave);
-        notebooks.add(notebook);
-        dave.setNotebooks(notebooks);
-        dave = userJpaRepository.save(dave);
+    NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
+    note.setTags(tags);
+    note = noteJpaRepository.save(note);
+    notebook.setNotes(new HashSet<>(Collections.singleton(note)));
+    notebookJpaRepository.save(notebook);
+    dave.setNotes(new HashSet<>(Collections.singleton(note)));
 
-        NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
-        note.setTags(tags);
-        note = noteJpaRepository.save(note);
-        notebook.setNotes(new HashSet<>(Collections.singleton(note)));
-        notebookJpaRepository.save(notebook);
-        dave.setNotes(new HashSet<>(Collections.singleton(note)));
+    List<NoteJpaEntity> notes = noteJpaRepository.findAll();
+    assertThat(notes, hasItem(note));
 
-        List<NoteJpaEntity> notes = noteJpaRepository.findAll();
-        assertThat(notes, contains(note));
+    note.setName("note 2");
+    noteJpaRepository.save(note);
+    notes = noteJpaRepository.findAll();
+    assertThat(notes, hasItem(note));
 
-        note.setName("note 2");
-        noteJpaRepository.save(note);
-        notes = noteJpaRepository.findAll();
-        assertThat(notes, contains(note));
+    assertThat(notes.get(notes.indexOf(note))
+                    .getTags(), is(tags));
+    assertThat(notes.get(notes.indexOf(note))
+                    .getUser(), is(dave));
 
-        assertThat(notes.get(0).getTags(), is(tags));
-        assertThat(notes.get(0).getUser(), is(dave));
+    List<TagJpaEntity> tagsAll = tagJpaRepository.findAll();
+    assertThat(tagsAll, hasItem(work));
 
-        List<TagJpaEntity> tagsAll = tagJpaRepository.findAll();
-        assertThat(tagsAll.size(), is(1));
-
-        List<NotebookJpaEntity> notebooksAll = notebookJpaRepository.findAll();
-        assertThat(notebooksAll.size(), is(1));
-    }
+    List<NotebookJpaEntity> notebooksAll = notebookJpaRepository.findAll();
+    assertThat(notebooksAll, hasItem(notebook));
+  }
 }
