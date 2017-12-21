@@ -90,8 +90,8 @@ public class TagJpaRepositoryIntegrationTest {
 
     NoteJpaEntity note = new NoteJpaEntity("Note 1", "text", dave, notebook);
     note.setTags(tags);
-    notebook.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
-    dave.setNotes(new HashSet<NoteJpaEntity>(Collections.singleton(note)));
+    notebook.setNotes(new HashSet<>(Collections.singleton(note)));
+    dave.setNotes(new HashSet<>(Collections.singleton(note)));
 
     userJpaRepository.save(dave);
 

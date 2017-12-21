@@ -64,7 +64,7 @@ public class TagControllerTest {
     @Test
     public void testPut() throws Exception {
         String newTag = "[{\"name\":\"new tag\"}]";
-        mvc.perform(put( "/tags")
+        mvc.perform(put( "/tags/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
                 .content(newTag))
                 .andExpect(status().isOk());

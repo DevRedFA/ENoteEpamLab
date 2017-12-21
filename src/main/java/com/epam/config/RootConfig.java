@@ -33,11 +33,11 @@ public class RootConfig extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public DataSource dataSource() {
-        return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
-                .addScript("schema.sql")
-                .build();
-    }
+  public DataSource dataSource() {
+    return new EmbeddedDatabaseBuilder().setType(EmbeddedDatabaseType.H2)
+                                        .addScript("schema.sql")
+                                        .build();
+  }
 
     @Bean
     public JpaVendorAdapter jpaVendorAdapter() {

@@ -12,45 +12,48 @@ import java.util.List;
 @RequestMapping(value = "/notebooks")
 public class NotebookController {
 
-    @Autowired
-    private NotebookDtoService notebookDtoService;
+  @Autowired
+  private NotebookDtoService notebookDtoService;
 
-    @GetMapping(value = "/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NotebookDto> getAllNotebookDtosFromUser(@PathVariable long userId) {
-        return notebookDtoService.getByUserId(userId);
-    }
+  @GetMapping(value = "/{userId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NotebookDto> getAllNotebooksFromUser(@PathVariable long userId) {
+    return notebookDtoService.getByUserId(userId);
+  }
 
-    @PutMapping(value = "/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public NotebookDto createNotebookDto(@PathVariable long userId, @RequestBody NotebookDto notebookDto) {
-        return notebookDtoService.save(userId, notebookDto);
-    }
+  @PutMapping(value = "/{userId}")
+  @ResponseStatus(HttpStatus.OK)
+  public NotebookDto createNotebook(@PathVariable long userId,
+                                    @RequestBody NotebookDto notebookDto) {
+    return notebookDtoService.save(userId, notebookDto);
+  }
 
-    @GetMapping(value = "/{userId}/{notebookId}")
-    @ResponseStatus(HttpStatus.OK)
-    public NotebookDto getNotebookDto(@PathVariable long notebookId) {
-        return notebookDtoService.getById(notebookId);
-    }
+  @GetMapping(value = "/{userId}/{notebookId}")
+  @ResponseStatus(HttpStatus.OK)
+  public NotebookDto getNotebook(@PathVariable long notebookId) {
+    return notebookDtoService.getById(notebookId);
+  }
 
-    @PostMapping(value = "/{userId}/{notebookId}")
-    @ResponseStatus(HttpStatus.OK)
-    public boolean updateNotebookDto(@PathVariable long notebookId, @RequestBody NotebookDto notebookDto) {
-        notebookDtoService.update(notebookId, notebookDto);
-        return true;
-    }
+  @PostMapping(value = "/{userId}/{notebookId}")
+  @ResponseStatus(HttpStatus.OK)
+  public boolean updateNotebook(@PathVariable long notebookId,
+                                @RequestBody NotebookDto notebookDto) {
+    notebookDtoService.update(notebookId, notebookDto);
+    return true;
+  }
 
-    @DeleteMapping(value = "/{userId}/{notebookId}")
-    @ResponseStatus(HttpStatus.OK)
-    public boolean deleteNotebookDto(@PathVariable long notebookId) {
-        notebookDtoService.delete(notebookId);
-        return true;
-    }
+  @DeleteMapping(value = "/{userId}/{notebookId}")
+  @ResponseStatus(HttpStatus.OK)
+  public boolean deleteNotebook(@PathVariable long notebookId) {
+    notebookDtoService.delete(notebookId);
+    return true;
+  }
 
-    @GetMapping(value = "/{userId}/{notebookId}/tag/{tagId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NotebookDto> getAllNotebookDtosFromUserWithTag(@PathVariable long userId, @PathVariable long tagId) {
-        return notebookDtoService.getByUserIdAndTagId(userId, tagId);
-    }
+  @GetMapping(value = "/{userId}/{notebookId}/tag/{tagId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NotebookDto> getAllNotebooksFromUserWithTag(@PathVariable long userId,
+                                                          @PathVariable long tagId) {
+    return notebookDtoService.getByUserIdAndTagId(userId, tagId);
+  }
 
 }
