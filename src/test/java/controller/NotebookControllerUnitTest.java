@@ -1,10 +1,9 @@
 package controller;
 
 
-import com.epam.controller.NoteController;
-import com.epam.dto.NoteDto;
-import com.epam.dto.interfaces.NoteDtoService;
-import com.epam.mapper.NoteMapper;
+import com.epam.controller.NotebookController;
+import com.epam.dto.interfaces.NotebookDtoService;
+import com.epam.mapper.NotebookMapper;
 import com.epam.service.models.Note;
 import com.epam.service.models.Notebook;
 import com.epam.service.models.Tag;
@@ -25,15 +24,14 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
-public class NoteControllerUnitTest {
+public class NotebookControllerUnitTest {
 
     @Mock
-    private NoteDtoService noteService;
+    private NotebookDtoService notebookService;
 
     @InjectMocks
-    private NoteController noteController;
+    private NotebookController notebookController;
 
     private MockMvc mvc;
 
@@ -41,72 +39,61 @@ public class NoteControllerUnitTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         mvc = MockMvcBuilders
-                .standaloneSetup(noteController)
+                .standaloneSetup(notebookController)
                 .build();
     }
 
-
     @Test
     public void testGetByUserId() throws Exception {
-        mvc.perform(get("/notes/0"))
+        mvc.perform(get("/notebooks/1"))
                 .andExpect(status().isOk());
-        verify(noteService, times(1)).getByUserId(0);
+        verify(notebookService, times(1)).getByUserId(1);
     }
 
     @Test
-    public void testGetByUserAndTagId() throws Exception {
-        mvc.perform(get("/notes/0/tag/0"))
+    public void testGetByUserAndNotebookId() throws Exception {
+        mvc.perform(get("/notebooks/0/0"))
                 .andExpect(status().isOk());
-        verify(noteService, times(1)).getByUserIdAndTagId(0, 0);
-    }
-
-    @Test
-    public void testGetTestByUserAndNotebookAndNoteId() throws Exception {
-        mvc.perform(get("/notes/0/0/0"))
-                .andExpect(status().isOk());
-        verify(noteService, times(1)).getById(0);
+        verify(notebookService, times(1)).getById(0);
     }
 
     @Test
     public void testGetTestByUserAndNotebookAndTagId() throws Exception {
-        mvc.perform(get("/notes/0/0/tag/0"))
+        mvc.perform(get("/notebooks/2/3/tag/1"))
                 .andExpect(status().isOk());
-        verify(noteService, times(1)).getByNotebookIdAndTagId(0, 0);
+        verify(notebookService, times(1)).getByUserIdAndTagId(2, 1);
     }
 
 
     @Test
     public void testPut() throws Exception {
         User user = new User(1, "Ivan1", "password", new HashSet<Tag>(), new HashSet<Notebook>(), new HashSet<Note>());
-        Note note = new Note(3, "note", "text", user, new Notebook(),
-                new HashSet<>(), null, null);
-        NoteDto noteDto = NoteMapper.toNoteDto(note);
-        String newNote = "{\"name\":\"note\",\"text\":\"text\",\"tags\":[]}";
-        mvc.perform(put("/notes/1/3")
+        Notebook notebook = new Notebook(1, "Notebook 1", user, new HashSet<>());
+        String newNotebook = "{\"name\":\"Notebook 1\",\"notes\":[]}";
+        mvc.perform(put("/notebooks/1")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(newNote))
+                .content(newNotebook))
                 .andExpect(status().isOk());
-        verify(noteService, times(1)).save(3, noteDto);
+        verify(notebookService, times(1)).save(1, NotebookMapper.toNotebookDto(notebook));
     }
 
     @Test
     public void testPost() throws Exception {
         User user = new User(1, "Ivan1", "password", new HashSet<Tag>(), new HashSet<Notebook>(), new HashSet<Note>());
-        Note note = new Note(3, "note", "text", user, new Notebook(),
-                new HashSet<>(), null, null);
-        NoteDto noteDto = NoteMapper.toNoteDto(note);
-        String newNote = "{\"name\":\"note\",\"text\":\"text\",\"tags\":[]}";
-        mvc.perform(post("/notes/0/0/0")
+        Notebook notebook = new Notebook(0, "Notebook 1", user, new HashSet<>());
+        String newNotebook = "{\"name\":\"Notebook 1\",\"notes\":[]}";
+        mvc.perform(post("/notebooks/0/0")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content(newNote))
+                .content(newNotebook))
                 .andExpect(status().isOk());
-        verify(noteService, times(1)).update(0, noteDto);
+        verify(notebookService, times(1)).update(0, NotebookMapper.toNotebookDto(notebook));
     }
 
     @Test
     public void testDelete() throws Exception {
-        mvc.perform(delete("/notes/0/0/0"))
+        mvc.perform(delete("/notebooks/0/0"))
                 .andExpect(status().isOk());
-        doNothing().when(noteService).delete(0);
+        doNothing().when(notebookService).delete(0);
+        verify(notebookService, times(1)).delete(0);
     }
 }

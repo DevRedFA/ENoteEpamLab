@@ -3,7 +3,6 @@ package jpaproxyrepository;
 import com.epam.config.RootConfig;
 import com.epam.service.models.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,17 +55,20 @@ public class JpaProxyNoteRepositoryIntegrationTest {
     noteId = note.getId();
   }
 
+
   @Test
   public void getAllTest() {
     List<Note> notes = noteRepository.all();
     assertThat(notes, hasItem(note));
   }
 
+
   @Test
   public void getByIdTest() {
     Note testNote = noteRepository.getById(noteId);
     assertThat(testNote, is(note));
   }
+
 
   @Test
   public void getByUserIdTest() {
@@ -75,14 +77,17 @@ public class JpaProxyNoteRepositoryIntegrationTest {
     assertThat(notes.size(), is(1));
   }
 
+
   @Test
   public void updateTest() {
     note.setName("new note");
-    noteRepository.update(note);
     Note testNote = noteRepository.getById(noteId);
+    noteRepository.update(note);
+    testNote = noteRepository.getById(noteId);
     assertThat(testNote, is(note));
     assertThat(testNote.getName(), is("new note"));
   }
+
 
   @Test
   public void deleteTest() {

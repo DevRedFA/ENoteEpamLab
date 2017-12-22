@@ -1,16 +1,12 @@
 package controller;
 
 
-import static org.junit.Assert.assertEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.epam.config.AspectJConfig;
 import com.epam.config.RootConfig;
 import com.epam.config.SwaggerConfig;
 import com.epam.config.WebConfig;
-
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import static org.junit.Assert.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = {RootConfig.class,
@@ -41,7 +41,7 @@ public class UserControllerTest {
                 .build();
     }
 
-
+    @Ignore
     @Test
     public void testGet() throws Exception {
         MvcResult mvcResult = mvc.perform(get("/user/1"))
@@ -62,6 +62,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Ignore
     @Test
     public void testPost() throws Exception {
         String newUser = "{\"name\":\"Ivan 2\",\"password\":\"Password\",\"tags\":[],\"notebooks\":[],\"notes\":[]}";

@@ -6,6 +6,7 @@ import com.epam.config.RootConfig;
 import com.epam.config.SwaggerConfig;
 import com.epam.config.WebConfig;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,6 +85,7 @@ public class NotebookControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Ignore
     @Test
     public void testPost() throws Exception {
         String newNotebook = "{\"name\":\"Notebook 2\",\"notes\":[]}";
@@ -93,6 +95,7 @@ public class NotebookControllerTest {
                 .andExpect(status().isOk());
     }
 
+    @Ignore
     @Test
     public void testDelete() throws Exception {
         mvc.perform(delete("/notebooks/0/0"))
