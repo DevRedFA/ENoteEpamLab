@@ -3,8 +3,10 @@ package com.epam.dao.jpaproxyrepository;
 import com.epam.dao.entity.NoteJpaEntity;
 import com.epam.dao.jparepository.NoteJpaRepository;
 import com.epam.mapper.NoteMapper;
+import com.epam.service.interfaces.UserService;
 import com.epam.service.models.Note;
 import com.epam.service.models.NoteRepository;
+import com.epam.service.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -16,37 +18,41 @@ import java.util.List;
 @Transactional(propagation = Propagation.MANDATORY)
 public class JpaProxyNoteRepository implements NoteRepository {
 
-    @Autowired
-    private NoteJpaRepository jpaRepository;
+  @Autowired
+  private NoteJpaRepository jpaRepository;
 
-    @Override
-    public Note save(Note note) {
-        NoteJpaEntity savedEntity = jpaRepository.save(NoteMapper.toNoteJpaEntity(note));
-        return NoteMapper.toNote(savedEntity);
-    }
+  @Autowired
+  private UserService userService;
 
-    @Override
-    public void update(Note note) {
-        jpaRepository.save(NoteMapper.toNoteJpaEntity(note));
-    }
+  @Override
+  public Note save(Note note) {
+    NoteJpaEntity savedEntity = jpaRepository.save(NoteMapper.toNoteJpaEntity(note));
+    return NoteMapper.toNote(savedEntity);
+  }
 
-    @Override
-    public List<Note> all() {
-        return NoteMapper.toNotes(jpaRepository.findAll());
-    }
+  @Override
+  public void update(Note note) {
+    NoteJpaEntity noteJpaEntity = NoteMapper.toNoteJpaEntity(note);
+    jpaRepository.save(noteJpaEntity);
+  }
 
-    @Override
-    public List<Note> getByUserId(long userId) {
-        return NoteMapper.toNotes(jpaRepository.findAllByUserId(userId));
-    }
+  @Override
+  public List<Note> all() {
+    return NoteMapper.toNotes(jpaRepository.findAll());
+  }
 
-    @Override
-    public Note getById(long id) {
-        return NoteMapper.toNote(jpaRepository.getOne(id));
-    }
+  @Override
+  public List<Note> getByUserId(long userId) {
+    return NoteMapper.toNotes(jpaRepository.findAllByUserId(userId));
+  }
 
-    @Override
-    public void delete(long noteId) {
-        jpaRepository.delete(noteId);
-    }
+  @Override
+  public Note getById(long id) {
+    return NoteMapper.toNote(jpaRepository.getOne(id));
+  }
+
+  @Override
+  public void delete(long noteId) {
+    jpaRepository.delete(noteId);
+  }
 }

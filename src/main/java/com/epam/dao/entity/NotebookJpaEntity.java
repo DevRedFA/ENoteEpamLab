@@ -34,6 +34,6 @@ public class NotebookJpaEntity {
       nullable = false)
   private UserJpaEntity user;
 
-  @OneToMany(mappedBy = "notebook", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @OneToMany(mappedBy = "notebook", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private Set<NoteJpaEntity> notes;
 }

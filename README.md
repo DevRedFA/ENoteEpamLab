@@ -4,6 +4,7 @@ Info: project for the "Spring" course in the Epam laboratory.
 | URL Path                                 | Request methods | Result                                                           |
 |------------------------------------------|-----------------|------------------------------------------------------------------|
 | /user                                    | PUT             | save user                                                        |
+| /user/all                                | GET             | get all users                                                    |        
 | /user/{id}                               | GET,POST,DELETE | get/update/delete user                                           |
 |                                          |                 |                                                                  |
 | /tags/{userId}                           | GET/PUT         | get all tags from user/create tag for user                       |

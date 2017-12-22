@@ -7,6 +7,7 @@ import com.epam.service.models.Note;
 import com.epam.service.models.Notebook;
 import com.epam.service.models.Tag;
 import com.epam.service.models.User;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -16,7 +17,9 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
+@Slf4j
 public class UserMapperTest {
+
 
     @Test
     public void testConversion() {

@@ -9,60 +9,61 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/noteDtos")
+@RequestMapping(value = "/notes")
 public class NoteController {
 
-    @Autowired
-    private NoteDtoService noteDtoService;
+  @Autowired
+  private NoteDtoService noteDtoService;
 
-    @GetMapping(value = "/{userId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NoteDto> getAllNoteDtosFromUser(@PathVariable long userId) {
-        return noteDtoService.getByUserId(userId);
-    }
+  @GetMapping(value = "/{userId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NoteDto> getAllNoteDtosFromUser(@PathVariable long userId) {
+    return noteDtoService.getByUserId(userId);
+  }
 
-    @GetMapping(value = "/{userId}/tag/{tagId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NoteDto> getAllNoteDtosFromUserWithTag(@PathVariable long userId, @PathVariable long tagId) {
-        return noteDtoService.getByUserIdAndTagId(userId, tagId);
-    }
+  @GetMapping(value = "/{userId}/tag/{tagId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NoteDto> getAllNotesFromUserWithTag(@PathVariable long userId,
+                                                  @PathVariable long tagId) {
+    return noteDtoService.getByUserIdAndTagId(userId, tagId);
+  }
 
-    @GetMapping(value = "/{userId}/{noteDtobookId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NoteDto> getAllNoteDtosFromNoteDtobook(@PathVariable long notebookId) {
-        return noteDtoService.getByNotebookId(notebookId);
-    }
+  @GetMapping(value = "/{userId}/{notebookId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NoteDto> getAllNotesFromNotebook(@PathVariable long notebookId) {
+    return noteDtoService.getByNotebookId(notebookId);
+  }
 
-    @PutMapping(value = "/{userId}/{noteDtobookId}")
-    @ResponseStatus(HttpStatus.OK)
-    public NoteDto createNoteDtoToNoteDtobook(@PathVariable long noteDtobookId, @RequestBody NoteDto noteDto) {
-        return noteDtoService.save(noteDtobookId, noteDto);
-    }
+  @PutMapping(value = "/{userId}/{notebookId}")
+  @ResponseStatus(HttpStatus.OK)
+  public NoteDto createNoteToNotebook(@PathVariable long notebookId, @RequestBody NoteDto noteDto) {
+    return noteDtoService.save(notebookId, noteDto);
+  }
 
-    @GetMapping(value = "/{userId}/{noteDtobookId}/{noteDtoId}")
-    @ResponseStatus(HttpStatus.OK)
-    public NoteDto getNoteDto(@PathVariable long noteDtoId) {
-        return noteDtoService.getById(noteDtoId);
-    }
+  @GetMapping(value = "/{userId}/{notebookId}/{noteId}")
+  @ResponseStatus(HttpStatus.OK)
+  public NoteDto getNote(@PathVariable long noteId) {
+    return noteDtoService.getById(noteId);
+  }
 
-    @PostMapping(value = "/{userId}/{noteDtobookId}/{noteDtoId}")
-    @ResponseStatus(HttpStatus.OK)
-    public boolean updateNoteDto(@PathVariable long noteDtoId, @RequestBody NoteDto noteDto) {
-        noteDtoService.update(noteDtoId, noteDto);
-        return true;
-    }
+  @PostMapping(value = "/{userId}/{notebookId}/{noteId}")
+  @ResponseStatus(HttpStatus.OK)
+  public boolean updateNoteDto(@PathVariable long noteId, @RequestBody NoteDto noteDto) {
+    noteDtoService.update(noteId, noteDto);
+    return true;
+  }
 
-    @DeleteMapping(value = "/{userId}/{noteDtobookId}/{noteDtoId}")
-    @ResponseStatus(HttpStatus.OK)
-    public boolean deleteNoteDto(@PathVariable long noteDtoId) {
-        noteDtoService.delete(noteDtoId);
-        return true;
-    }
+  @DeleteMapping(value = "/{userId}/{notebookId}/{noteId}")
+  @ResponseStatus(HttpStatus.OK)
+  public boolean deleteNoteDto(@PathVariable long noteId) {
+    noteDtoService.delete(noteId);
+    return true;
+  }
 
-    @GetMapping(value = "/{userId}/{noteDtobookId}/tag/{tagId}")
-    @ResponseStatus(HttpStatus.OK)
-    public List<NoteDto> getAllNoteDtosFromNoteDtobookWithTag(@PathVariable long noteDtobookId,
-                                                              @PathVariable long tagId) {
-        return noteDtoService.getByNotebookIdAndTagId(noteDtobookId, tagId);
-    }
+  @GetMapping(value = "/{userId}/{notebookId}/tag/{tagId}")
+  @ResponseStatus(HttpStatus.OK)
+  public List<NoteDto> getAllNotesFromNotebookWithTag(@PathVariable long notebookId,
+                                                      @PathVariable long tagId) {
+    return noteDtoService.getByNotebookIdAndTagId(notebookId, tagId);
+  }
 }

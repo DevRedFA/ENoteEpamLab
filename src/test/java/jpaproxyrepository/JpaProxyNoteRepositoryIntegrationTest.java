@@ -63,7 +63,6 @@ public class JpaProxyNoteRepositoryIntegrationTest {
   }
 
   @Test
-  @Ignore
   public void getByIdTest() {
     Note testNote = noteRepository.getById(noteId);
     assertThat(testNote, is(note));

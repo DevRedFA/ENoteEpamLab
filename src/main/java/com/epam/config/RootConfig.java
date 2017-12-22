@@ -4,6 +4,7 @@ import com.epam.controller.exception.EndpointExceptionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
@@ -20,16 +21,12 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
+@EnableAspectJAutoProxy
 @EnableJpaRepositories("com.epam.dao")
-@ComponentScan({"com.epam.dao", "com.epam.dto", "com.epam.mapper", "com.epam.controller", "com.epam.dao.jparepository", "com.epam.service", "com.epam.config"})
+@ComponentScan({"com.epam.*"})
 public class RootConfig extends WebMvcConfigurerAdapter {
 
     public RootConfig() {
-    }
-
-    @Bean
-    public EndpointExceptionHandler endpointExceptionHandler() {
-        return new EndpointExceptionHandler();
     }
 
     @Bean
