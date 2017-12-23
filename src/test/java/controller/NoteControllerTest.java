@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {RootConfig.class,
     SwaggerConfig.class, WebConfig.class, AspectJConfig.class})
 @WebAppConfiguration
-@DirtiesContext(classMode = ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class NoteControllerTest {
 
   @Autowired
