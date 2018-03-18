@@ -25,4 +25,4 @@ Info: project for the "Spring" course in the Epam laboratory.
 
 
 # Database Scheme
-![Database](scheme.jpg?raw=true "Database")
+![Database](image.png?raw=true "Database")
